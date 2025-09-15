@@ -29,7 +29,7 @@
           <a href="https://www.linkedin.com/in/tristan-saldanha/" class="reference-link">Linkedin</a>
           <a href="https://x.com/m00nwhaler" class="reference-link">X</a>
           <a href="https://github.com/kh3dron" class="reference-link">Github</a>
-          <a href="mailto:tristansaldanha@gmail.com" class="reference-link">Gmail</a>
+          <a href="#" onclick="showEmailPopup()" class="reference-link">Gmail</a>
           <a href="./blog/index.html" class="reference-link">Blog</a>
         </p>
         <div class="whoami-section">
@@ -45,7 +45,7 @@
             <h4>Interests:</h4>
             <ul>
               <li>Currently working on: AI infra, vibe coding guardrails and RAG tools for SWE teams</li>
-              <li>Generally working on: Platform Engineering, IAC, Devops & CI Pipelines</li>
+              <li>Generally working on: Platform Engineering, K8s, Devops & CI Pipelines</li>
               <li>In my spare time: Math, <a href="https://github.com/kh3dron/scifi-database"
                   class="project-link">Science Fiction</a>,
                 <a href="https://github.com/kh3dron/homelab" class="project-link">Homelabbing</a>,
@@ -65,7 +65,7 @@
                   Alliance</a></li>
               <li>Infrastructure Engineer @ <a href="https://www.laurel.ai/" class="employer-link">Laurel</a></li>
               <li>Webapp Penetration Tester @ <a href="https://www.netspi.com/" class="employer-link">Netspi</a></li>
-              <li>BA in Computer Science @ <a href="https://www.lclark.edu/" class="employer-link">Lewis & Clark
+              <li>Computer Science @ <a href="https://www.lclark.edu/" class="employer-link">Lewis & Clark
                   College</a></li>
             </ul>
           </div>
@@ -91,7 +91,65 @@
     </div>
   </div>
 
+  <!-- Email popup -->
+  <div class="popup-overlay" id="popupOverlay" onclick="hideEmailPopup()"></div>
+  <div class="email-popup" id="emailPopup">
+    <p>Contact me at:</p>
+    <div class="email-address">
+      <span id="emailText">tristansaldanha@gmail.com</span>
+      <button class="copy-btn" onclick="copyEmail()" title="Copy to clipboard">
+        <i class="fas fa-copy"></i>
+      </button>
+    </div>
+    <div class="copy-feedback" id="copyFeedback">Copied to clipboard!</div>
+    <button class="close-btn" onclick="hideEmailPopup()">Close</button>
+  </div>
+
   <script src="boids.js"></script>
+  <script>
+    function showEmailPopup() {
+      document.getElementById('popupOverlay').style.display = 'block';
+      document.getElementById('emailPopup').style.display = 'block';
+    }
+
+    function hideEmailPopup() {
+      document.getElementById('popupOverlay').style.display = 'none';
+      document.getElementById('emailPopup').style.display = 'none';
+      document.getElementById('copyFeedback').style.display = 'none';
+    }
+
+    function copyEmail() {
+      const emailText = document.getElementById('emailText').textContent;
+      navigator.clipboard.writeText(emailText).then(() => {
+        const feedback = document.getElementById('copyFeedback');
+        feedback.style.display = 'block';
+        setTimeout(() => {
+          feedback.style.display = 'none';
+        }, 2000);
+      }).catch(() => {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = emailText;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+
+        const feedback = document.getElementById('copyFeedback');
+        feedback.style.display = 'block';
+        setTimeout(() => {
+          feedback.style.display = 'none';
+        }, 2000);
+      });
+    }
+
+    // Close popup with Escape key
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        hideEmailPopup();
+      }
+    });
+  </script>
 </body>
 
 </html>
