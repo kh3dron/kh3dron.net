@@ -42,7 +42,7 @@ main li {
 }
 
 main a {
-  color: var(--secondary-color);
+  color: lime;
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -79,6 +79,22 @@ header pre {
   padding: 2em;
   box-sizing: border-box;
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Content box wrapper */
+.content-box {
+  background-color: rgba(0, 0, 0, 0.9);
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  max-width: 800px;
+  width: 90%;
+  pointer-events: auto;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 /* Make text content not interfere with canvas mouse events */
@@ -88,20 +104,15 @@ div {
   pointer-events: none;
 }
 
-/* Add black background only behind text content */
+/* Remove individual backgrounds since content-box handles it */
 main div {
-  padding: 1rem;
+  padding: 0;
   margin-bottom: 1rem;
-  border-radius: 4px;
-  width: fit-content;
 }
 
 header {
-  background-color: rgba(0, 0, 0, 0.8);
-  padding: 1rem;
-  border-radius: 4px;
+  padding: 0;
   margin-bottom: 1rem;
-  width: fit-content;
 }
 
 /* But allow links to still be clickable */
@@ -110,15 +121,80 @@ a {
 }
 
 h3 {
-  background-color: rgba(0, 0, 0, 0.8);
-  padding: 0.25rem 0.5rem;
-  border-radius: 2px;
-  width: fit-content;
+  padding: 0;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
 }
 
-a {
-  background-color: rgba(0, 0, 0, 0.8);
-  display: inline-block;
-  padding: 0.25rem 0.5rem;
-  border-radius: 2px;
+h4 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  font-weight: normal;
+}
+
+.whoami-section {
+  margin-bottom: 2rem;
+}
+
+.experience-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Reference links styling */
+main p:first-child {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+main p:first-child a {
+  flex: 1;
+  text-align: center;
+}
+
+/* Employer links styling */
+.employer-link {
+  color: yellow !important;
+}
+
+.employer-link:hover {
+  color: yellow !important;
+}
+
+/* Project links styling */
+.project-link {
+  color: lime !important;
+}
+
+.project-link:hover {
+  color: lime !important;
+}
+
+/* Reference links styling */
+.reference-link {
+  color: lime !important;
+}
+
+.reference-link:hover {
+  color: lime !important;
+}
+
+/* Blog page styling */
+.blog-content {
+  text-align: center;
+}
+
+.coming-soon {
+  margin: 2rem 0;
+}
+
+.coming-soon p {
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.navigation {
+  margin-top: 2rem;
 }
