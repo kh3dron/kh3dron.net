@@ -1,3 +1,8 @@
+---
+title: "Writing an MCP server around your vendor of choice"
+date: "September 15, 2025"
+---
+
 # Writing an MCP server around your vendor of chioce
 
 This is a case study of something I did at work last week. It's a trendy thing to do and there were a few things I had to figure out, so here's a guide.
@@ -10,7 +15,7 @@ My company uses LaunchDarkly feature flags in our product. The ask is this: we o
 - Segments are groups of users - in my B2B SaaS use case, customer firms.
 - Flags: are Enabled or Disabled. If a Flag is Enabled, Flags are On or Off for a Segment, controlled through a Policy.
 
-Noet that it doesn't matter here what a flag actually does; I only want to know which ones are On and Off for which Segments. Specifically, three operations:
+Note that it doesn't matter here what a flag actually does; I only want to know which ones are On and Off for which Segments. Specifically, three operations:
 
 - Is Flag X On for Segment Y
 - For Segment X: list all flags as On or Off

@@ -10,32 +10,43 @@ from pathlib import Path
 from datetime import datetime
 import markdown
 from markdown.extensions import codehilite, fenced_code
+import yaml
+
 
 def extract_frontmatter(content):
-    """Extract title and date from markdown content"""
-    lines = content.split('\n')
+    """Extract title, date, and excerpt from markdown content with YAML frontmatter support"""
+    lines = content.split("\n")
     title = None
     date = None
-    excerpt = None
+    content_start = 0
 
-    # Extract title from first # heading
-    for line in lines:
-        if line.startswith('# '):
-            title = line[2:].strip()
-            break
+    # Check for YAML frontmatter (between --- delimiters)
+    if lines and lines[0].strip() == "---":
+        try:
+            # Find the closing ---
+            end_idx = lines[1:].index("---") + 1
+            frontmatter_text = "\n".join(lines[1:end_idx])
+            frontmatter = yaml.safe_load(frontmatter_text)
 
-    # Get excerpt from first paragraph after title
-    content_lines = []
-    found_title = False
-    for line in lines:
-        if line.startswith('# ') and not found_title:
-            found_title = True
-            continue
-        if found_title and line.strip() and not line.startswith('#'):
-            excerpt = line.strip()
-            break
+            if frontmatter:
+                title = frontmatter.get("title")
+                date = frontmatter.get("date")
 
-    return title, date, excerpt
+            content_start = end_idx + 1
+        except (ValueError, yaml.YAMLError):
+            # No valid frontmatter found, continue with regular parsing
+            pass
+
+    # If no title found in frontmatter, extract from first # heading
+    if not title:
+        for line in lines[content_start:]:
+            if line.startswith("# "):
+                title = line[2:].strip()
+                break
+
+    # Get excerpt from first paragraph after title if not in frontmatter
+    return title, date, content_start
+
 
 def create_html_template(title, content, date=None):
     """Create complete HTML page with site styling"""
@@ -83,6 +94,7 @@ def create_html_template(title, content, date=None):
 
 </html>"""
 
+
 def generate_blog_index(posts):
     """Generate the blog index page with all posts"""
     posts_html = ""
@@ -90,7 +102,6 @@ def generate_blog_index(posts):
         posts_html += f"""            <article class="blog-post-preview">
               <h4><a href="{post['slug']}/index.html" class="project-link">{post['title']}</a></h4>
               <p class="post-date">{post['date']}</p>
-              <p class="post-excerpt">{post['excerpt']}</p>
             </article>
 """
 
@@ -129,19 +140,31 @@ def generate_blog_index(posts):
 
 </html>"""
 
-def process_markdown_content(content):
-    """Process markdown content and fix links for HTML"""
-    # Convert markdown to HTML (skip the title as it's already in the header)
-    lines = content.split('\n')
-    content_without_title = '\n'.join(lines[1:]) if lines[0].startswith('# ') else content
 
-    md = markdown.Markdown(extensions=['fenced_code', 'codehilite'])
+def process_markdown_content(content, content_start=0):
+    """Process markdown content and fix links for HTML"""
+    # Convert markdown to HTML (skip frontmatter and title)
+    lines = content.split("\n")
+
+    # Skip frontmatter if present
+    actual_content_start = content_start
+    for i in range(content_start, len(lines)):
+        if lines[i].startswith("# "):
+            actual_content_start = i + 1
+            break
+
+    content_without_title = "\n".join(lines[actual_content_start:])
+
+    md = markdown.Markdown(extensions=["fenced_code", "codehilite"])
     html_content = md.convert(content_without_title)
 
     # Add proper link classes
-    html_content = re.sub(r'<a href="([^"]*)">', r'<a href="\1" class="project-link">', html_content)
+    html_content = re.sub(
+        r'<a href="([^"]*)">', r'<a href="\1" class="project-link">', html_content
+    )
 
     return html_content
+
 
 def main():
     blog_dir = Path("blog")
@@ -155,49 +178,62 @@ def main():
                 print(f"Processing {md_file}")
 
                 # Read markdown content
-                with open(md_file, 'r', encoding='utf-8') as f:
+                with open(md_file, "r", encoding="utf-8") as f:
                     content = f.read()
 
                 # Extract metadata
-                title, date, excerpt = extract_frontmatter(content)
+                title, date, content_start = extract_frontmatter(content)
                 if not title:
-                    title = post_dir.name.replace('-', ' ').title()
+                    title = post_dir.name.replace("-", " ").title()
                 if not date:
                     # Use file modification time as fallback
-                    date = datetime.fromtimestamp(md_file.stat().st_mtime).strftime("%B %d, %Y")
-                if not excerpt:
-                    excerpt = "Blog post"
+                    date = datetime.fromtimestamp(md_file.stat().st_mtime).strftime(
+                        "%B %d, %Y"
+                    )
 
                 # Convert markdown to HTML
-                html_content = process_markdown_content(content)
+                html_content = process_markdown_content(content, content_start)
 
                 # Create full HTML page
                 full_html = create_html_template(title, html_content, date)
 
                 # Write HTML file
                 html_file = post_dir / "index.html"
-                with open(html_file, 'w', encoding='utf-8') as f:
+                with open(html_file, "w", encoding="utf-8") as f:
                     f.write(full_html)
 
                 # Add to posts list for index
-                posts.append({
-                    'title': title,
-                    'date': date,
-                    'excerpt': excerpt,
-                    'slug': post_dir.name
-                })
+                posts.append(
+                    {
+                        "title": title,
+                        "date": date,
+                        "slug": post_dir.name,
+                    }
+                )
 
                 print(f"Generated {html_file}")
 
     # Sort posts by date (newest first)
-    posts.sort(key=lambda x: x['date'], reverse=True)
+    def parse_date(date_str):
+        """Parse date string to datetime for sorting"""
+        if not date_str:
+            return datetime.min
+        try:
+            # Try parsing formats like "September 15, 2025" or "November 03, 2025"
+            return datetime.strptime(date_str, "%B %d, %Y")
+        except ValueError:
+            # If parsing fails, return min date to push to end
+            return datetime.min
+
+    posts.sort(key=lambda x: parse_date(x["date"]), reverse=True)
 
     # Generate blog index
     blog_index = generate_blog_index(posts)
-    with open(blog_dir / "index.html", 'w', encoding='utf-8') as f:
+    with open(blog_dir / "index.html", "w", encoding="utf-8") as f:
         f.write(blog_index)
 
     print(f"Generated blog index with {len(posts)} posts")
+
 
 if __name__ == "__main__":
     main()
