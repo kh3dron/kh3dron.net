@@ -436,7 +436,7 @@ main p:first-child a {
 
 .theme-toggle:hover {
   background-color: var(--code-bg);
-  color: var(--background-color);
+  color: var(--primary-color);
 }
 
 /* Email popup styling */
