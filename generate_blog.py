@@ -95,14 +95,29 @@ def create_html_template(title, content, date=None):
 </html>"""
 
 
+def format_date_month_year(date_str):
+    """Format date string to 'Month Year' format (e.g., 'November 2025')"""
+    if not date_str:
+        return ""
+    try:
+        # Try parsing formats like "September 15, 2025" or "November 03, 2025"
+        dt = datetime.strptime(date_str, "%B %d, %Y")
+        return dt.strftime("%B %Y")
+    except ValueError:
+        # If parsing fails, try to extract month and year from the string
+        # This handles edge cases
+        return date_str
+
+
 def generate_blog_index(posts):
     """Generate the blog index page with all posts"""
     posts_html = ""
     for post in posts:
-        posts_html += f"""            <article class="blog-post-preview">
-              <h4><a href="{post['slug']}/index.html" class="project-link">{post['title']}</a></h4>
-              <p class="post-date">{post['date']}</p>
-            </article>
+        date_formatted = format_date_month_year(post["date"])
+        posts_html += f"""            <li class="blog-post-item">
+              <a href="{post['slug']}/index.html" class="blog-post-title">{post['title']}</a>
+              <span class="blog-post-date">{date_formatted}</span>
+            </li>
 """
 
     return f"""<!DOCTYPE html>
@@ -125,8 +140,8 @@ def generate_blog_index(posts):
       <main>
         <div class="blog-content">
           <h3>blog</h3>
-          <div class="blog-posts">
-{posts_html}          </div>
+          <ul class="blog-posts">
+{posts_html}          </ul>
           <div class="navigation">
             <a href="../index.html" class="reference-link">← back to home</a>
           </div>

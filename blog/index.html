@@ -13,21 +13,24 @@
 <body>
   <canvas id="boids-canvas"></canvas>
 
+  <!-- Theme toggle button -->
+  <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle-btn">dark</button>
+
   <div class="text-container">
     <div class="content-box">
       <main>
         <div class="blog-content">
           <h3>blog</h3>
-          <div class="blog-posts">
-            <article class="blog-post-preview">
-              <h4><a href="laurel-case-study/index.html" class="project-link">Laurel's Internal AI Strategy</a></h4>
-              <p class="post-date">November 03, 2025</p>
-            </article>
-            <article class="blog-post-preview">
-              <h4><a href="mcp/index.html" class="project-link">Writing an MCP server around your vendor of choice</a></h4>
-              <p class="post-date">September 15, 2025</p>
-            </article>
-          </div>
+          <ul class="blog-posts">
+            <li class="blog-post-item">
+              <a href="laurel-case-study/index.html" class="blog-post-title">Laurel's Internal AI Strategy</a>
+              <span class="blog-post-date">November 2025</span>
+            </li>
+            <li class="blog-post-item">
+              <a href="mcp/index.html" class="blog-post-title">Writing MCP servers on your vendors</a>
+              <span class="blog-post-date">September 2025</span>
+            </li>
+          </ul>
           <div class="navigation">
             <a href="../index.html" class="reference-link">← back to home</a>
           </div>
@@ -36,6 +39,7 @@
     </div>
   </div>
 
+  <script src="../theme.js"></script>
   <script src="../boids.js"></script>
 </body>
 

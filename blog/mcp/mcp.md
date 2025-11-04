@@ -1,5 +1,5 @@
 ---
-title: "Writing an MCP server around your vendor of choice"
+title: "Writing MCP servers on your vendors"
 date: "September 15, 2025"
 ---
 

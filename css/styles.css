@@ -1,8 +1,28 @@
 :root {
+  --primary-color: #000000;
+  --background-color: #ffffff;
+  --secondary-color: #000000;
+  --border-radius: 8px;
+  --link-color: #0066cc;
+  --link-hover-color: #004499;
+  --border-color: #cccccc;
+  --content-bg: rgba(255, 255, 255, 0.95);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --code-bg: rgba(0, 0, 0, 0.05);
+  --code-color: #c7254e;
+}
+
+[data-theme="dark"] {
   --primary-color: #ffffff;
   --background-color: #000000;
   --secondary-color: #ffffff;
-  --border-radius: 8px;
+  --link-color: #00ff00;
+  --link-hover-color: #ffffff;
+  --border-color: #ffffff;
+  --content-bg: rgba(0, 0, 0, 0.9);
+  --shadow-color: rgba(255, 255, 255, 0.2);
+  --code-bg: rgba(255, 255, 255, 0.1);
+  --code-color: #00ff00;
 }
 
 * {
@@ -42,13 +62,13 @@ main li {
 }
 
 main a {
-  color: lime;
+  color: var(--link-color);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 main a:hover {
-  color: var(--primary-color);
+  color: var(--link-hover-color);
   text-decoration: underline;
 }
 
@@ -93,14 +113,14 @@ header pre {
 
 /* Content box wrapper */
 .content-box {
-  background-color: rgba(0, 0, 0, 0.9);
-  border: 2px solid var(--primary-color);
+  background-color: var(--content-bg);
+  border: 2px solid var(--border-color);
   border-radius: var(--border-radius);
   padding: 2rem;
   max-width: 1000px;
   width: 90%;
   pointer-events: auto;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px var(--shadow-color);
 }
 
 /* Make text content not interfere with canvas mouse events */
@@ -161,29 +181,29 @@ main p:first-child a {
 
 /* Employer links styling */
 .employer-link {
-  color: #00ffff !important;
+  color: var(--link-color) !important;
 }
 
 .employer-link:hover {
-  color: #00ffff !important;
+  color: var(--link-hover-color) !important;
 }
 
 /* Project links styling */
 .project-link {
-  color: lime !important;
+  color: var(--link-color) !important;
 }
 
 .project-link:hover {
-  color: lime !important;
+  color: var(--link-hover-color) !important;
 }
 
 /* Reference links styling */
 .reference-link {
-  color: lime !important;
+  color: var(--link-color) !important;
 }
 
 .reference-link:hover {
-  color: lime !important;
+  color: var(--link-hover-color) !important;
 }
 
 /* Blog page styling */
@@ -208,38 +228,33 @@ main p:first-child a {
 .blog-posts {
   text-align: left;
   margin: 2rem 0;
+  list-style-type: disc;
+  padding-left: 1.5rem;
 }
 
-.blog-post-preview {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--border-radius);
-}
-
-.blog-post-preview h4 {
+.blog-post-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
   margin-bottom: 0.5rem;
+  gap: 1rem;
+  list-style-position: outside;
 }
 
-.blog-post-preview h4 a {
-  color: lime;
+.blog-post-title {
+  color: var(--link-color);
   text-decoration: none;
+  flex-shrink: 0;
 }
 
-.blog-post-preview h4 a:hover {
+.blog-post-title:hover {
   text-decoration: underline;
 }
 
-.post-date {
-  color: #888;
-  font-size: 0.9em;
-  margin-bottom: 0.5rem;
-}
-
-.post-excerpt {
+.blog-post-date {
   color: var(--primary-color);
-  line-height: 1.4;
+  white-space: nowrap;
+  margin-left: auto;
 }
 
 /* Individual blog post styling */
@@ -260,7 +275,7 @@ main p:first-child a {
 }
 
 .post-meta {
-  color: #888;
+  color: #666666;
   font-size: 0.9em;
 }
 
@@ -290,16 +305,16 @@ main p:first-child a {
 }
 
 .post-content code {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--code-bg);
   padding: 0.2rem 0.4rem;
   border-radius: 3px;
-  color: lime;
+  color: var(--code-color);
   font-family: "JetBrains Mono", monospace;
 }
 
 .post-content pre {
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   padding: 1rem;
   overflow-x: auto;
@@ -348,7 +363,7 @@ main p:first-child a {
 } /* Name.Function */
 
 .post-content a {
-  color: lime;
+  color: var(--link-color);
   text-decoration: none;
 }
 
@@ -364,7 +379,7 @@ main p:first-child a {
 .screenshot img {
   max-width: 100%;
   height: auto;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
 }
 
@@ -373,11 +388,11 @@ main p:first-child a {
   max-width: 100%;
   width: auto;
   height: auto;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   display: block;
   margin: 1.5rem auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 .navigation a {
@@ -402,18 +417,39 @@ main p:first-child a {
   }
 }
 
+/* Theme toggle button */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  border: 1px solid var(--border-color);
+  background-color: var(--content-bg);
+  color: var(--primary-color);
+  cursor: pointer;
+  z-index: 1000;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-family: "JetBrains Mono";
+  font-size: 14px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.theme-toggle:hover {
+  background-color: var(--code-bg);
+}
+
 /* Email popup styling */
 .email-popup {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.95);
-  border: 2px solid var(--primary-color);
+  background-color: var(--content-bg);
+  border: 2px solid var(--border-color);
   border-radius: var(--border-radius);
   padding: 2rem;
   z-index: 1000;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 20px var(--shadow-color);
   display: none;
   text-align: center;
 }
@@ -425,10 +461,10 @@ main p:first-child a {
 }
 
 .email-popup .email-address {
-  color: lime;
+  color: var(--link-color);
   font-weight: bold;
   padding: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--code-bg);
   border-radius: 4px;
   margin: 1rem 0;
   display: flex;
@@ -438,8 +474,8 @@ main p:first-child a {
 
 .email-popup .copy-btn {
   background: none;
-  border: 1px solid lime;
-  color: lime;
+  border: 1px solid var(--link-color);
+  color: var(--link-color);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   cursor: pointer;
@@ -450,12 +486,12 @@ main p:first-child a {
 }
 
 .email-popup .copy-btn:hover {
-  background-color: lime;
+  background-color: var(--link-color);
   color: var(--background-color);
 }
 
 .copy-feedback {
-  color: lime;
+  color: var(--link-color);
   font-size: 0.9em;
   margin-bottom: 1rem;
   display: none;
@@ -463,7 +499,7 @@ main p:first-child a {
 
 .email-popup .close-btn {
   background: none;
-  border: 1px solid var(--primary-color);
+  border: 1px solid var(--border-color);
   color: var(--primary-color);
   padding: 0.5rem 1rem;
   border-radius: 4px;
@@ -483,7 +519,7 @@ main p:first-child a {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
   z-index: 999;
   display: none;
 }

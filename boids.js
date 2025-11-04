@@ -231,7 +231,7 @@ function createBoids(count) {
 }
 
 // Create boids (you can change the number here)
-const boids = createBoids(1000);
+const boids = createBoids(100);
 
 // Mouse interaction variables
 let isMouseDown = false;
