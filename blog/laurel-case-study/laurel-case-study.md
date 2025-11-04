@@ -1,5 +1,5 @@
 ---
-title: "Laurel's Internal AI Strategy"
+title: "Force multiplying with AI at Laurel"
 date: "November 03, 2025"
 ---
 

@@ -1,9 +1,9 @@
 ---
-title: "Writing MCP servers on your vendors"
+title: "Writing MCP servers to interface with your vendors"
 date: "September 15, 2025"
 ---
 
-# Writing an MCP server around your vendor of chioce
+# Writing an MCP server around your vendor of choice
 
 This is a case study of something I did at work last week. It's a trendy thing to do and there were a few things I had to figure out, so here's a guide.
 

@@ -2,27 +2,27 @@
   --primary-color: #000000;
   --background-color: #ffffff;
   --secondary-color: #000000;
-  --border-radius: 8px;
-  --link-color: #0066cc;
-  --link-hover-color: #004499;
-  --border-color: #cccccc;
-  --content-bg: rgba(255, 255, 255, 0.95);
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --code-bg: rgba(0, 0, 0, 0.05);
-  --code-color: #c7254e;
+  --border-radius: 0;
+  --link-color: #0000FF;
+  --link-hover-color: #000080;
+  --border-color: #000000;
+  --content-bg: #ffffff;
+  --shadow-color: #000000;
+  --code-bg: #000000;
+  --code-color: #FFFF00;
 }
 
 [data-theme="dark"] {
   --primary-color: #ffffff;
   --background-color: #000000;
   --secondary-color: #ffffff;
-  --link-color: #00ff00;
-  --link-hover-color: #ffffff;
+  --link-color: #00FF00;
+  --link-hover-color: #00FFFF;
   --border-color: #ffffff;
-  --content-bg: rgba(0, 0, 0, 0.9);
-  --shadow-color: rgba(255, 255, 255, 0.2);
-  --code-bg: rgba(255, 255, 255, 0.1);
-  --code-color: #00ff00;
+  --content-bg: #000000;
+  --shadow-color: #ffffff;
+  --code-bg: #ffffff;
+  --code-color: #00FF00;
 }
 
 * {
@@ -64,7 +64,7 @@ main li {
 main a {
   color: var(--link-color);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: none;
 }
 
 main a:hover {
@@ -115,12 +115,12 @@ header pre {
 .content-box {
   background-color: var(--content-bg);
   border: 2px solid var(--border-color);
-  border-radius: var(--border-radius);
+  border-radius: 0;
   padding: 2rem;
   max-width: 1000px;
   width: 90%;
   pointer-events: auto;
-  box-shadow: 0 0 20px var(--shadow-color);
+  box-shadow: none;
 }
 
 /* Make text content not interfere with canvas mouse events */
@@ -275,7 +275,7 @@ main p:first-child a {
 }
 
 .post-meta {
-  color: #666666;
+  color: var(--primary-color);
   font-size: 0.9em;
 }
 
@@ -307,7 +307,7 @@ main p:first-child a {
 .post-content code {
   background-color: var(--code-bg);
   padding: 0.2rem 0.4rem;
-  border-radius: 3px;
+  border-radius: 0;
   color: var(--code-color);
   font-family: "JetBrains Mono", monospace;
 }
@@ -315,7 +315,7 @@ main p:first-child a {
 .post-content pre {
   background-color: var(--code-bg);
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
+  border-radius: 0;
   padding: 1rem;
   overflow-x: auto;
   margin: 1rem 0;
@@ -327,7 +327,7 @@ main p:first-child a {
   color: var(--primary-color);
 }
 
-/* Python syntax highlighting */
+/* Python syntax highlighting - ANSI colors only */
 .post-content .codehilite .n {
   color: var(--primary-color);
 } /* Names */
@@ -335,32 +335,32 @@ main p:first-child a {
   color: var(--primary-color);
 } /* Punctuation */
 .post-content .codehilite .c1 {
-  color: #6a9955;
-} /* Comments */
+  color: #00FF00;
+} /* Comments - Green */
 .post-content .codehilite .s2 {
-  color: #ce9178;
-} /* Strings */
+  color: #FFFF00;
+} /* Strings - Yellow */
 .post-content .codehilite .nt {
-  color: #4fc1ff;
-} /* Name.Tag (JSON keys) */
+  color: #00FFFF;
+} /* Name.Tag (JSON keys) - Cyan */
 .post-content .codehilite .w {
   color: var(--primary-color);
 } /* Whitespace */
 .post-content .codehilite .k {
-  color: #569cd6;
-} /* Keywords */
+  color: #0000FF;
+} /* Keywords - Blue */
 .post-content .codehilite .kn {
-  color: #569cd6;
-} /* Keyword.Namespace */
+  color: #0000FF;
+} /* Keyword.Namespace - Blue */
 .post-content .codehilite .o {
   color: var(--primary-color);
 } /* Operators */
 .post-content .codehilite .nb {
-  color: #4ec9b0;
-} /* Name.Builtin */
+  color: #FF00FF;
+} /* Name.Builtin - Magenta */
 .post-content .codehilite .nf {
-  color: #dcdcaa;
-} /* Name.Function */
+  color: #FF0000;
+} /* Name.Function - Red */
 
 .post-content a {
   color: var(--link-color);
@@ -380,7 +380,7 @@ main p:first-child a {
   max-width: 100%;
   height: auto;
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
+  border-radius: 0;
 }
 
 /* General image styling for blog posts */
@@ -389,10 +389,10 @@ main p:first-child a {
   width: auto;
   height: auto;
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
+  border-radius: 0;
   display: block;
   margin: 1.5rem auto;
-  box-shadow: 0 4px 12px var(--shadow-color);
+  box-shadow: none;
 }
 
 .navigation a {
@@ -428,14 +428,15 @@ main p:first-child a {
   cursor: pointer;
   z-index: 1000;
   padding: 0.5rem 1rem;
-  border-radius: 4px;
+  border-radius: 0;
   font-family: "JetBrains Mono";
   font-size: 14px;
-  box-shadow: 0 2px 8px var(--shadow-color);
+  box-shadow: none;
 }
 
 .theme-toggle:hover {
   background-color: var(--code-bg);
+  color: var(--background-color);
 }
 
 /* Email popup styling */
@@ -446,10 +447,10 @@ main p:first-child a {
   transform: translate(-50%, -50%);
   background-color: var(--content-bg);
   border: 2px solid var(--border-color);
-  border-radius: var(--border-radius);
+  border-radius: 0;
   padding: 2rem;
   z-index: 1000;
-  box-shadow: 0 0 20px var(--shadow-color);
+  box-shadow: none;
   display: none;
   text-align: center;
 }
@@ -465,7 +466,7 @@ main p:first-child a {
   font-weight: bold;
   padding: 0.5rem;
   background-color: var(--code-bg);
-  border-radius: 4px;
+  border-radius: 0;
   margin: 1rem 0;
   display: flex;
   align-items: center;
@@ -477,10 +478,10 @@ main p:first-child a {
   border: 1px solid var(--link-color);
   color: var(--link-color);
   padding: 0.25rem 0.5rem;
-  border-radius: 4px;
+  border-radius: 0;
   cursor: pointer;
   font-size: 0.9em;
-  transition: all 0.2s ease;
+  transition: none;
   display: flex;
   align-items: center;
 }
@@ -502,10 +503,10 @@ main p:first-child a {
   border: 1px solid var(--border-color);
   color: var(--primary-color);
   padding: 0.5rem 1rem;
-  border-radius: 4px;
+  border-radius: 0;
   cursor: pointer;
   font-family: "JetBrains Mono";
-  transition: all 0.2s ease;
+  transition: none;
 }
 
 .email-popup .close-btn:hover {
@@ -519,7 +520,11 @@ main p:first-child a {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: #000000;
   z-index: 999;
   display: none;
+}
+
+[data-theme="dark"] .popup-overlay {
+  background-color: #FFFFFF;
 }

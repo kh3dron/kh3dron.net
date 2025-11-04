@@ -67,6 +67,9 @@ def create_html_template(title, content, date=None):
 <body>
   <canvas id="boids-canvas"></canvas>
 
+  <!-- Theme toggle button -->
+  <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle-btn">dark</button>
+
   <div class="text-container">
     <div class="content-box">
       <main>
@@ -89,6 +92,7 @@ def create_html_template(title, content, date=None):
     </div>
   </div>
 
+  <script src="../../theme.js"></script>
   <script src="../../boids.js"></script>
 </body>
 
@@ -135,6 +139,9 @@ def generate_blog_index(posts):
 <body>
   <canvas id="boids-canvas"></canvas>
 
+  <!-- Theme toggle button -->
+  <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle-btn">dark</button>
+
   <div class="text-container">
     <div class="content-box">
       <main>
@@ -150,6 +157,7 @@ def generate_blog_index(posts):
     </div>
   </div>
 
+  <script src="../theme.js"></script>
   <script src="../boids.js"></script>
 </body>
 
