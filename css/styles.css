@@ -540,3 +540,49 @@ main p:first-child a {
 [data-theme="dark"] .popup-overlay {
   background-color: #FFFFFF;
 }
+
+/* Collapsible sections */
+.toggle-buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.collapsible-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: "JetBrains Mono";
+  color: var(--primary-color);
+}
+
+.collapsible-toggle:hover {
+  opacity: 0.8;
+}
+
+.toggle-label {
+  color: var(--primary-color);
+  font-size: 1.2em;
+}
+
+.toggle-icon {
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 1.2em;
+  min-width: 1em;
+  display: inline-block;
+}
+
+.collapsible-content-area {
+  margin-top: 1rem;
+}
+
+.collapsible-content {
+  display: none;
+}

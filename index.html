@@ -30,67 +30,98 @@
 ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝</pre>
       </header>
       <main>
-        <p>
-          <a href="https://www.linkedin.com/in/tristan-saldanha/" class="reference-link">Linkedin</a> |
-          <a href="https://x.com/m00nwhaler" class="reference-link">X</a> |
-          <a href="https://github.com/kh3dron" class="reference-link">Github</a> |
-          <a href="#" onclick="showEmailPopup()" class="reference-link">Gmail</a> |
-          <a href="./blog/index.html" class="reference-link">Blog</a>
-        </p>
-        <div class="whoami-section">
-          <h3>Welcome to my web site</h3>
-          <div class="experience-group">
-            <h4>Currently:</h4>
-            <ul>
-              <li>Senior Infrastructure Engineer @ <a href="https://www.laurel.ai/" class="employer-link">Laurel</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4>Interests:</h4>
-            <ul>
-              <li>Currently working on: AI infra, vibe coding guardrails and RAG tools for SWE teams</li>
-              <li>Generally working on: Platform Engineering, K8s, Devops & CI Pipelines</li>
-              <li>In my spare time: Math, <a href="https://github.com/kh3dron/scifi-database"
-                  class="project-link">Science Fiction</a>,
-                <a href="https://github.com/kh3dron/homelab" class="project-link">Homelabbing</a>,
-                Engineering History & <a href="https://github.com/kh3dron/khedrons-qol-tweaks"
-                  class="project-link">Factorio</a>
-              </li>
-            </ul>
-          </div>
-          <div class="experience-group">
-            <h4>Previously:</h4>
-            <ul>
-              <li>Senior Infrastructure Engineer @ <a href="https://www.nike.com/" class="employer-link">Nike</a></li>
-              <li>Lead Cloud Engineer @ <a href="https://www.movementinfrastructure.org/" class="employer-link">Movement
-                  Infrastructure
-                  Group</a></li>
-              <li>Cloud Engineer @ <a href="https://communitytechalliance.org/" class="employer-link">Community Tech
-                  Alliance</a></li>
-              <li>Infrastructure Engineer @ <a href="https://www.laurel.ai/" class="employer-link">Laurel</a></li>
-              <li>Webapp Penetration Tester @ <a href="https://www.netspi.com/" class="employer-link">Netspi</a></li>
-              <li>Computer Science @ <a href="https://www.lclark.edu/" class="employer-link">Lewis & Clark
-                  College</a></li>
-            </ul>
-          </div>
-
+        <div class="toggle-buttons-container">
+          <button class="collapsible-toggle" onclick="toggleSection('bio', this)">
+            <span class="toggle-icon">[+]</span>
+            <span class="toggle-label">Bio</span>
+          </button>
+          <button class="collapsible-toggle" onclick="toggleSection('essays', this)">
+            <span class="toggle-icon">[+]</span>
+            <span class="toggle-label">Essays</span>
+          </button>
+          <button class="collapsible-toggle" onclick="toggleSection('reach-me', this)">
+            <span class="toggle-icon">[+]</span>
+            <span class="toggle-label">Reach me</span>
+          </button>
+          <button class="collapsible-toggle" onclick="toggleSection('projects', this)">
+            <span class="toggle-icon">[+]</span>
+            <span class="toggle-label">Projects</span>
+          </button>
         </div>
-
-        <div>
-          <h3>Projects</h3>
-          <ul>
-            <li>
-              <a href="https://kh3dron.github.io/topologic-go/" class="project-link">Topological Go</a>
-            </li>
-            <li>
-              <a href="https://kh3dron.github.io/plants/" class="project-link">The Algorithmic Beauty of Plants</a>
-            </li>
-            <li>
-              <a href="https://kh3dron.github.io/graphics/" class="project-link">WebGL Programming Guide</a>
-            </li>
-            </li>
-          </ul>
+        <div class="collapsible-content-area">
+          <div id="bio-content" class="collapsible-content">
+            <div class="experience-group">
+              <h4>Currently:</h4>
+              <ul>
+                <li>Senior Infrastructure Engineer @ <a href="https://www.laurel.ai/" class="employer-link">Laurel</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4>Interests:</h4>
+              <ul>
+                <li>Currently working on: AI infra, vibe coding guardrails and RAG tools for SWE teams</li>
+                <li>Generally working on: Platform Engineering, K8s, Devops & CI Pipelines</li>
+                <li>In my spare time: Math, <a href="https://github.com/kh3dron/scifi-database"
+                    class="project-link">Science Fiction</a>,
+                  <a href="https://github.com/kh3dron/homelab" class="project-link">Homelabbing</a>,
+                  Engineering History & <a href="https://github.com/kh3dron/khedrons-qol-tweaks"
+                    class="project-link">Factorio</a>
+                </li>
+              </ul>
+            </div>
+            <div class="experience-group">
+              <h4>Previously:</h4>
+              <ul>
+                <li>Senior Infrastructure Engineer @ <a href="https://www.nike.com/" class="employer-link">Nike</a></li>
+                <li>Lead Cloud Engineer @ <a href="https://www.movementinfrastructure.org/"
+                    class="employer-link">Movement
+                    Infrastructure
+                    Group</a></li>
+                <li>Cloud Engineer @ <a href="https://communitytechalliance.org/" class="employer-link">Community Tech
+                    Alliance</a></li>
+                <li>Infrastructure Engineer @ <a href="https://www.laurel.ai/" class="employer-link">Laurel</a></li>
+                <li>Webapp Penetration Tester @ <a href="https://www.netspi.com/" class="employer-link">Netspi</a></li>
+                <li>Computer Science @ <a href="https://www.lclark.edu/" class="employer-link">Lewis & Clark
+                    College</a></li>
+              </ul>
+            </div>
+          </div>
+          <div id="essays-content" class="collapsible-content">
+            <ul class="blog-posts">
+              <li class="blog-post-item">
+                <a href="./blog/laurel-case-study/index.html" class="blog-post-title">Force multiplying with AI at
+                  Laurel</a>
+                <span class="blog-post-date">November 2025</span>
+              </li>
+              <li class="blog-post-item">
+                <a href="./blog/mcp/index.html" class="blog-post-title">Writing MCP servers to interface with your
+                  vendors</a>
+                <span class="blog-post-date">September 2025</span>
+              </li>
+            </ul>
+          </div>
+          <div id="reach-me-content" class="collapsible-content">
+            <ul>
+              <li><a href="https://x.com/m00nwhaler" class="reference-link">X</a></li>
+              <li><a href="https://github.com/kh3dron" class="reference-link">Github</a></li>
+              <li><a href="https://www.linkedin.com/in/tristan-saldanha/" class="reference-link">Linkedin</a></li>
+              <li>Gmail: tristansaldanha@gmail.com</li>
+            </ul>
+          </div>
+          <div id="projects-content" class="collapsible-content">
+            <ul>
+              <li>
+                <a href="https://kh3dron.github.io/topologic-go/" class="project-link">Topological Go</a>
+              </li>
+              <li>
+                <a href="https://kh3dron.github.io/plants/" class="project-link">The Algorithmic Beauty of Plants</a>
+              </li>
+              <li>
+                <a href="https://kh3dron.github.io/graphics/" class="project-link">WebGL Programming Guide</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </main>
     </div>
@@ -155,6 +186,29 @@
         hideEmailPopup();
       }
     });
+
+    // Toggle collapsible sections
+    function toggleSection(sectionId, button) {
+      const content = document.getElementById(sectionId + '-content');
+      const icon = button.querySelector('.toggle-icon');
+      const allButtons = document.querySelectorAll('.collapsible-toggle');
+      const allContents = document.querySelectorAll('.collapsible-content');
+
+      if (content.style.display === 'block') {
+        // Close this section
+        content.style.display = 'none';
+        icon.textContent = '[+]';
+      } else {
+        // Close all sections first
+        allContents.forEach(c => c.style.display = 'none');
+        allButtons.forEach(b => {
+          b.querySelector('.toggle-icon').textContent = '[+]';
+        });
+        // Open the selected section
+        content.style.display = 'block';
+        icon.textContent = '[-]';
+      }
+    }
   </script>
 </body>
 
