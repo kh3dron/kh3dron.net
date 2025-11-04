@@ -416,6 +416,14 @@ main p:first-child a {
   header pre {
     font-size: 0.6em;
   }
+
+  .blog-post-date {
+    display: none;
+  }
+
+  .blog-post-item {
+    display: list-item;
+  }
 }
 
 @media (max-width: 480px) {
@@ -426,6 +434,14 @@ main p:first-child a {
   .content-box {
     padding: 1rem;
     width: 95%;
+  }
+
+  .blog-post-date {
+    display: none;
+  }
+
+  .blog-post-item {
+    display: list-item;
   }
 }
 
