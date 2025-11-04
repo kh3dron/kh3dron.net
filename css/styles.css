@@ -31,11 +31,20 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow: hidden;
+  height: 100%;
+}
+
 body {
   font-family: "JetBrains Mono";
   font-size: 16px;
   background-color: var(--background-color);
   line-height: 1.2;
+  overflow: hidden;
+  height: 100%;
+  position: fixed;
+  width: 100%;
 }
 
 /* Main content styling */
@@ -91,6 +100,7 @@ header pre {
   height: 100%;
   pointer-events: auto;
   z-index: -1;
+  touch-action: none;
 }
 
 /* Container for all text content - overlay on top of boids */
@@ -104,11 +114,13 @@ header pre {
   z-index: 1;
   padding: 2em;
   box-sizing: border-box;
-  pointer-events: none;
+  pointer-events: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
 }
 
 /* Content box wrapper */
