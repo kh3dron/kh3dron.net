@@ -8,8 +8,8 @@
   --border-color: #000000;
   --content-bg: #ffffff;
   --shadow-color: #000000;
-  --code-bg: #000000;
-  --code-color: #FFFF00;
+  --code-bg: #ffffff;
+  --code-color: #000000;
 }
 
 [data-theme="dark"] {
@@ -21,7 +21,7 @@
   --border-color: #ffffff;
   --content-bg: #000000;
   --shadow-color: #ffffff;
-  --code-bg: #ffffff;
+  --code-bg: #000000;
   --code-color: #00FF00;
 }
 
@@ -324,7 +324,7 @@ main p:first-child a {
 .post-content pre code {
   background: none;
   padding: 0;
-  color: var(--primary-color);
+  color: var(--code-color);
 }
 
 /* Python syntax highlighting - ANSI colors only */

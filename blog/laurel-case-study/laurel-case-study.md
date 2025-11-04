@@ -5,7 +5,9 @@ date: "November 03, 2025"
 
 # How Laurel Multiplies Engineering Productivity with AI: A Case Study
 
-The startup I work at, Laurel, raised our Series C round in April, our investors asked us the same question: "$BIG FIRM says they don't need to hire any more engineers because of AI. Are you doing that? Why not?"
+_This is the written form of a talk I gave to an eng org considering getting "ai pilled"._
+
+The startup I work at, Laurel, raised our Series C round in April. All of our investors asked us the same question: "$BIG FIRM says they don't need to hire any more engineers because of AI. Are you doing that? Why not?"
 
 We all know there's some showbusiness in that claim - most of the firms who "don't need to hire engineers anymore" are a) still hiring engineers, and b) selling AI products themselves. But there is some truth here - SWE productivity is not pinned to headcount like it used to be.
 

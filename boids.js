@@ -191,7 +191,9 @@ class Boid {
     ctx.rotate(angle);
 
     // Draw boid as a triangle
-    ctx.fillStyle = "#00CED1"; // Teal color to match the theme
+    // Use darker blue in light mode, teal in dark mode
+    const isDarkMode = document.body.getAttribute('data-theme') === 'dark';
+    ctx.fillStyle = isDarkMode ? "#00CED1" : "#0000FF"; // Teal for dark mode, blue for light mode
     ctx.beginPath();
     ctx.moveTo(8, 0);
     ctx.lineTo(-4, -3);
