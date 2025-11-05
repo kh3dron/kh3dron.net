@@ -2,3 +2,40 @@
 .content-box {
   max-width: 1200px !important;
 }
+
+/* Color styling for blog post headings */
+.post-header h1 {
+  color: #0000FF !important;
+}
+
+[data-theme="dark"] .post-header h1 {
+  color: #00FF00 !important;
+}
+
+.post-content h2 {
+  color: #0000FF !important;
+}
+
+[data-theme="dark"] .post-content h2 {
+  color: #00FF00 !important;
+}
+
+.post-content h3 {
+  color: #000080 !important;
+}
+
+[data-theme="dark"] .post-content h3 {
+  color: #00FFFF !important;
+}
+
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  color: #000080 !important;
+}
+
+[data-theme="dark"] .post-content h4,
+[data-theme="dark"] .post-content h5,
+[data-theme="dark"] .post-content h6 {
+  color: #00FFFF !important;
+}

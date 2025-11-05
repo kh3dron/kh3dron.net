@@ -112,8 +112,6 @@ Sleepers: Long-haul overnight trips in room sized accomodations. If the NYC team
 
 True RVs: Buy a fully autonomous RV, live in it full-time, work remotely, never stop moving. Or, just have it drive between cities at night and wake up somewhere new every day. This is also on my list of specific wants.
 
-The entire relationship with vehicles shifts from "transportation device I occasionally use" to "space I inhabit that can also be moving."
-
 ## Natural Language Vehicle Interface
 
 All of this—config service, fleet orchestration, annotations, emergency systems—needs to be controllable through natural conversation:

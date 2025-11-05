@@ -60,6 +60,7 @@ def create_html_template(title, content, date=None):
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title} - kh3dron.net</title>
   <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/blog.css">
   <link href="https://fonts.googleapis.com/css?family=JetBrains Mono" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -277,9 +278,11 @@ def main():
         # Find and replace the blog posts list in the essays section
         # Match the <ul class="blog-posts">...</ul> within the essays-content div
         pattern = r'(<div id="essays-content" class="collapsible-content">\s*<ul class="blog-posts">).*?(</ul>\s*</div>)'
-        replacement = r'\1\n' + blog_posts_html + r'            \2'
+        replacement = r"\1\n" + blog_posts_html + r"            \2"
 
-        updated_content = re.sub(pattern, replacement, base_index_content, flags=re.DOTALL)
+        updated_content = re.sub(
+            pattern, replacement, base_index_content, flags=re.DOTALL
+        )
 
         with open(base_index_path, "w", encoding="utf-8") as f:
             f.write(updated_content)
