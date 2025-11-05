@@ -113,16 +113,24 @@ def format_date_month_year(date_str):
         return date_str
 
 
-def generate_blog_index(posts):
-    """Generate the blog index page with all posts"""
+def generate_blog_posts_html(posts, link_prefix=""):
+    """Generate HTML for blog posts list"""
     posts_html = ""
     for post in posts:
         date_formatted = format_date_month_year(post["date"])
-        posts_html += f"""            <li class="blog-post-item">
-              <a href="{post['slug']}/index.html" class="blog-post-title">{post['title']}</a>
-              <span class="blog-post-date">{date_formatted}</span>
-            </li>
+        link = f"{link_prefix}{post['slug']}/index.html"
+        # Use correct indentation: 14 spaces for <li>, 16 for <a> and <span>
+        posts_html += f"""              <li class="blog-post-item">
+                <a href="{link}" class="blog-post-title">{post['title']}</a>
+                <span class="blog-post-date">{date_formatted}</span>
+              </li>
 """
+    return posts_html
+
+
+def generate_blog_index(posts):
+    """Generate the blog index page with all posts"""
+    posts_html = generate_blog_posts_html(posts)
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -256,6 +264,27 @@ def main():
         f.write(blog_index)
 
     print(f"Generated blog index with {len(posts)} posts")
+
+    # Update base index.html with blog posts
+    base_index_path = Path("index.html")
+    if base_index_path.exists():
+        with open(base_index_path, "r", encoding="utf-8") as f:
+            base_index_content = f.read()
+
+        # Generate blog posts HTML for base index (with ./blog/ prefix)
+        blog_posts_html = generate_blog_posts_html(posts, link_prefix="./blog/")
+
+        # Find and replace the blog posts list in the essays section
+        # Match the <ul class="blog-posts">...</ul> within the essays-content div
+        pattern = r'(<div id="essays-content" class="collapsible-content">\s*<ul class="blog-posts">).*?(</ul>\s*</div>)'
+        replacement = r'\1\n' + blog_posts_html + r'            \2'
+
+        updated_content = re.sub(pattern, replacement, base_index_content, flags=re.DOTALL)
+
+        with open(base_index_path, "w", encoding="utf-8") as f:
+            f.write(updated_content)
+
+        print(f"Updated base index.html with {len(posts)} posts")
 
 
 if __name__ == "__main__":
