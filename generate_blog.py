@@ -47,38 +47,9 @@ def extract_frontmatter(content):
     return title, date, content_start
 
 
-def generate_table_of_contents(content):
-    """Generate table of contents from markdown headings"""
-    lines = content.split("\n")
-    toc_items = []
-
-    for line in lines:
-        if line.startswith("## "):
-            heading = line[3:].strip()
-            anchor = heading.lower().replace(" ", "-").replace("'", "")
-            # Remove special characters
-            anchor = re.sub(r'[^\w\-]', '', anchor)
-            toc_items.append(f'<li><a href="#{anchor}" class="toc-link">{heading}</a></li>')
-
-    if not toc_items:
-        return ""
-
-    toc_html = '<nav class="table-of-contents">\n'
-    toc_html += '  <h4>Contents</h4>\n'
-    toc_html += '  <ul>\n'
-    toc_html += '\n'.join(f'    {item}' for item in toc_items)
-    toc_html += '\n  </ul>\n'
-    toc_html += '</nav>\n'
-
-    return toc_html
-
-
-def create_html_template(title, content, date=None, toc=None):
+def create_html_template(title, content, date=None):
     """Create complete HTML page with site styling"""
     date_str = date or "Recent"
-
-    # Generate TOC HTML
-    toc_html = toc if toc else ""
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -96,9 +67,6 @@ def create_html_template(title, content, date=None, toc=None):
 <body>
   <canvas id="boids-canvas"></canvas>
 
-  <!-- Theme toggle button -->
-  <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle-btn">dark</button>
-
   <div class="text-container">
     <div class="content-box">
       <main>
@@ -109,8 +77,6 @@ def create_html_template(title, content, date=None, toc=None):
               <p class="post-meta">{date_str}</p>
             </div>
           </header>
-
-          {toc_html}
 
           <div class="post-content">
             {content}
@@ -188,13 +154,11 @@ def generate_blog_index(posts):
   <div class="text-container">
     <div class="content-box">
       <main>
-        <div class="blog-content">
-          <h3>blog</h3>
-          <ul class="blog-posts">
-{posts_html}          </ul>
-          <div class="navigation">
-            <a href="../index.html" class="reference-link">← back to home</a>
-          </div>
+        <h3>blog</h3>
+        <ul class="blog-posts">
+{posts_html}        </ul>
+        <div class="navigation">
+          <a href="../index.html" class="reference-link">← back to home</a>
         </div>
       </main>
     </div>
@@ -228,16 +192,6 @@ def process_markdown_content(content, content_start=0):
     html_content = re.sub(
         r'<a href="([^"]*)">', r'<a href="\1" class="project-link">', html_content
     )
-
-    # Add IDs to h2 headings for table of contents
-    def add_heading_id(match):
-        heading_text = match.group(1)
-        heading_id = heading_text.lower().replace(" ", "-").replace("'", "")
-        # Remove special characters
-        heading_id = re.sub(r'[^\w\-]', '', heading_id)
-        return f'<h2 id="{heading_id}">{heading_text}</h2>'
-
-    html_content = re.sub(r'<h2>([^<]+)</h2>', add_heading_id, html_content)
 
     return html_content
 
@@ -302,15 +256,11 @@ def main():
         # Convert markdown to HTML
         html_content = process_markdown_content(post["content"], post["content_start"])
 
-        # Generate table of contents
-        toc = generate_table_of_contents(post["content"])
-
         # Create full HTML page
         full_html = create_html_template(
             post["title"],
             html_content,
             post["date"],
-            toc,
         )
 
         # Write HTML file
@@ -343,11 +293,13 @@ def main():
             base_index_content = f.read()
 
         # Generate blog posts HTML for base index (with ./blog/ prefix)
-        blog_posts_html = generate_blog_posts_html(posts_for_index, link_prefix="./blog/")
+        blog_posts_html = generate_blog_posts_html(
+            posts_for_index, link_prefix="./blog/"
+        )
 
         # Find and replace the blog posts list in the essays section
         # Match the <ul class="blog-posts">...</ul> within the essays-content div
-        pattern = r'(<div id="essays-content" class="collapsible-content">\s*<ul class="blog-posts">).*?(</ul>\s*</div>)'
+        pattern = r'(<section id="blog" class="content-section">\s*<ul class="blog-posts">).*?(</ul>\s*</section>)'
         replacement = r"\1\n" + blog_posts_html + r"            \2"
 
         updated_content = re.sub(

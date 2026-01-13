@@ -27,26 +27,15 @@
 ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝</pre>
       </header>
       <main>
-        <div class="toggle-buttons-container">
-          <button class="collapsible-toggle" onclick="toggleSection('bio', this)">
-            <span class="toggle-icon">[+]</span>
-            <span class="toggle-label">Bio</span>
-          </button>
-          <button class="collapsible-toggle" onclick="toggleSection('essays', this)">
-            <span class="toggle-icon">[+]</span>
-            <span class="toggle-label">Essays</span>
-          </button>
-          <button class="collapsible-toggle" onclick="toggleSection('reach-me', this)">
-            <span class="toggle-icon">[+]</span>
-            <span class="toggle-label">Reach me</span>
-          </button>
-          <button class="collapsible-toggle" onclick="toggleSection('projects', this)">
-            <span class="toggle-icon">[+]</span>
-            <span class="toggle-label">Projects</span>
-          </button>
-        </div>
-        <div class="collapsible-content-area">
-          <div id="bio-content" class="collapsible-content">
+        <nav class="nav-links">
+          <a onclick="showSection('bio')">Bio</a>
+          <a onclick="showSection('blog')">Blog</a>
+          <a onclick="showSection('reach-me')">Reach me</a>
+          <a onclick="showSection('projects')">Projects</a>
+        </nav>
+        <div class="content-sections">
+          <section id="bio" class="content-section">
+            <h3>Bio</h3>
             <div class="experience-group">
               <h4>Currently:</h4>
               <ul>
@@ -83,8 +72,9 @@
                     College</a></li>
               </ul>
             </div>
-          </div>
-          <div id="essays-content" class="collapsible-content">
+          </section>
+          <section id="blog" class="content-section">
+            <h3>blog</h3>
             <ul class="blog-posts">
               <li class="blog-post-item">
                 <a href="./blog/4/index.html" class="blog-post-title">EOY 2025</a>
@@ -99,20 +89,23 @@
                 <span class="blog-post-date">November 2025</span>
               </li>
               <li class="blog-post-item">
-                <a href="./blog/1/index.html" class="blog-post-title">Writing MCP servers to interface with your vendors</a>
+                <a href="./blog/1/index.html" class="blog-post-title">Writing MCP servers to interface with your
+                  vendors</a>
                 <span class="blog-post-date">September 2025</span>
               </li>
             </ul>
-          </div>
-          <div id="reach-me-content" class="collapsible-content">
+          </section>
+          <section id="reach-me" class="content-section">
+            <h3>Reach me</h3>
             <ul>
               <li><a href="https://x.com/m00nwhaler" class="reference-link">X</a></li>
               <li><a href="https://github.com/kh3dron" class="reference-link">Github</a></li>
               <li><a href="https://www.linkedin.com/in/tristan-saldanha/" class="reference-link">Linkedin</a></li>
               <li>Gmail: tristansaldanha@gmail.com</li>
             </ul>
-          </div>
-          <div id="projects-content" class="collapsible-content">
+          </section>
+          <section id="projects" class="content-section">
+            <h3>Projects</h3>
             <ul>
               <li>
                 <a href="https://kh3dron.github.io/topologic-go/" class="project-link">Topological Go</a>
@@ -124,7 +117,7 @@
                 <a href="https://kh3dron.github.io/graphics/" class="project-link">WebGL Programming Guide</a>
               </li>
             </ul>
-          </div>
+          </section>
         </div>
       </main>
     </div>
@@ -189,26 +182,18 @@
       }
     });
 
-    // Toggle collapsible sections
-    function toggleSection(sectionId, button) {
-      const content = document.getElementById(sectionId + '-content');
-      const icon = button.querySelector('.toggle-icon');
-      const allButtons = document.querySelectorAll('.collapsible-toggle');
-      const allContents = document.querySelectorAll('.collapsible-content');
+    // Show/hide sections
+    function showSection(sectionId) {
+      // Hide all sections
+      const sections = document.querySelectorAll('.content-section');
+      sections.forEach(section => {
+        section.classList.remove('active');
+      });
 
-      if (content.style.display === 'block') {
-        // Close this section
-        content.style.display = 'none';
-        icon.textContent = '[+]';
-      } else {
-        // Close all sections first
-        allContents.forEach(c => c.style.display = 'none');
-        allButtons.forEach(b => {
-          b.querySelector('.toggle-icon').textContent = '[+]';
-        });
-        // Open the selected section
-        content.style.display = 'block';
-        icon.textContent = '[-]';
+      // Show the selected section
+      const selectedSection = document.getElementById(sectionId);
+      if (selectedSection) {
+        selectedSection.classList.add('active');
       }
     }
   </script>
