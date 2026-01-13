@@ -14,6 +14,9 @@
 <body>
   <canvas id="boids-canvas"></canvas>
 
+  <!-- Theme toggle button -->
+  <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle-btn">dark</button>
+
   <div class="text-container">
     <div class="content-box">
       <main>
@@ -21,7 +24,7 @@
           <header class="post-header">
             <h1>Writing MCP servers to interface with your vendors</h1>
             <div class="post-meta-container">
-              <p class="post-meta">September 15, 2025 <span class="reading-time">6 min read</span></p>
+              <p class="post-meta">September 15, 2025</p>
             </div>
           </header>
 
@@ -120,12 +123,6 @@ get_all_flags_for_segment(project, environment, segment)
 <p>I did this in 2 workdays. Is any of this rocket science? No. Will it save our CSM team a couple minutes at a time, times a thousand? Yes! Thanks for reading. Please go back to work.</p>
           </div>
 
-          <div class="post-navigation">
-  <a href="../2/index.html" class="nav-prev">← Force multiplying with AI at Laurel</a>
-  <span class="nav-placeholder"></span>
-</div>
-
-
           <div class="navigation">
             <a href="../index.html" class="reference-link">← back to blog</a>
             <a href="../../index.html" class="reference-link">← back to home</a>
@@ -135,6 +132,7 @@ get_all_flags_for_segment(project, environment, segment)
     </div>
   </div>
 
+  <script src="../../theme.js"></script>
   <script src="../../boids.js"></script>
 </body>
 

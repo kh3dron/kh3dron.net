@@ -47,13 +47,6 @@ def extract_frontmatter(content):
     return title, date, content_start
 
 
-def estimate_reading_time(content):
-    """Estimate reading time based on word count (assumes 200 words per minute)"""
-    words = len(content.split())
-    minutes = max(1, round(words / 200))
-    return f"{minutes} min read"
-
-
 def generate_table_of_contents(content):
     """Generate table of contents from markdown headings"""
     lines = content.split("\n")
@@ -80,30 +73,12 @@ def generate_table_of_contents(content):
     return toc_html
 
 
-def create_html_template(title, content, date=None, reading_time=None, toc=None, prev_post=None, next_post=None):
+def create_html_template(title, content, date=None, toc=None):
     """Create complete HTML page with site styling"""
     date_str = date or "Recent"
 
-    # Generate reading time HTML
-    reading_time_html = ""
-    if reading_time:
-        reading_time_html = f'<span class="reading-time">{reading_time}</span>'
-
     # Generate TOC HTML
     toc_html = toc if toc else ""
-
-    # Generate prev/next navigation
-    prev_next_html = '<div class="post-navigation">\n'
-    if prev_post:
-        prev_next_html += f'  <a href="../{prev_post["slug"]}/index.html" class="nav-prev">← {prev_post["title"]}</a>\n'
-    else:
-        prev_next_html += '  <span class="nav-placeholder"></span>\n'
-
-    if next_post:
-        prev_next_html += f'  <a href="../{next_post["slug"]}/index.html" class="nav-next">{next_post["title"]} →</a>\n'
-    else:
-        prev_next_html += '  <span class="nav-placeholder"></span>\n'
-    prev_next_html += '</div>\n'
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -131,7 +106,7 @@ def create_html_template(title, content, date=None, reading_time=None, toc=None,
           <header class="post-header">
             <h1>{title}</h1>
             <div class="post-meta-container">
-              <p class="post-meta">{date_str} {reading_time_html}</p>
+              <p class="post-meta">{date_str}</p>
             </div>
           </header>
 
@@ -140,8 +115,6 @@ def create_html_template(title, content, date=None, reading_time=None, toc=None,
           <div class="post-content">
             {content}
           </div>
-
-          {prev_next_html}
 
           <div class="navigation">
             <a href="../index.html" class="reference-link">← back to blog</a>
@@ -322,19 +295,12 @@ def main():
 
     posts.sort(key=lambda x: parse_date(x["date"]), reverse=True)
 
-    # Second pass: generate HTML with prev/next links
+    # Second pass: generate HTML
     for i, post in enumerate(posts):
         print(f"Processing {post['md_file']}")
 
-        # Get prev/next posts
-        prev_post = posts[i - 1] if i > 0 else None
-        next_post = posts[i + 1] if i < len(posts) - 1 else None
-
         # Convert markdown to HTML
         html_content = process_markdown_content(post["content"], post["content_start"])
-
-        # Calculate reading time
-        reading_time = estimate_reading_time(post["content"])
 
         # Generate table of contents
         toc = generate_table_of_contents(post["content"])
@@ -344,10 +310,7 @@ def main():
             post["title"],
             html_content,
             post["date"],
-            reading_time,
             toc,
-            prev_post,
-            next_post,
         )
 
         # Write HTML file
