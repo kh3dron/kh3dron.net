@@ -187,7 +187,7 @@ def process_markdown_content(content, content_start=0):
 
     content_without_title = "\n".join(lines[actual_content_start:])
 
-    md = markdown.Markdown(extensions=["fenced_code", "codehilite"])
+    md = markdown.Markdown(extensions=["fenced_code", "codehilite", "tables"])
     html_content = md.convert(content_without_title)
 
     # Add proper link classes
