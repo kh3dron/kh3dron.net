@@ -14,7 +14,7 @@ import yaml
 
 
 def extract_frontmatter(content):
-    """Extract title, date, and excerpt from markdown content with YAML frontmatter support"""
+    """Extract title and date from markdown content with YAML frontmatter support"""
     lines = content.split("\n")
     title = None
     date = None
@@ -44,13 +44,66 @@ def extract_frontmatter(content):
                 title = line[2:].strip()
                 break
 
-    # Get excerpt from first paragraph after title if not in frontmatter
     return title, date, content_start
 
 
-def create_html_template(title, content, date=None):
+def estimate_reading_time(content):
+    """Estimate reading time based on word count (assumes 200 words per minute)"""
+    words = len(content.split())
+    minutes = max(1, round(words / 200))
+    return f"{minutes} min read"
+
+
+def generate_table_of_contents(content):
+    """Generate table of contents from markdown headings"""
+    lines = content.split("\n")
+    toc_items = []
+
+    for line in lines:
+        if line.startswith("## "):
+            heading = line[3:].strip()
+            anchor = heading.lower().replace(" ", "-").replace("'", "")
+            # Remove special characters
+            anchor = re.sub(r'[^\w\-]', '', anchor)
+            toc_items.append(f'<li><a href="#{anchor}" class="toc-link">{heading}</a></li>')
+
+    if not toc_items:
+        return ""
+
+    toc_html = '<nav class="table-of-contents">\n'
+    toc_html += '  <h4>Contents</h4>\n'
+    toc_html += '  <ul>\n'
+    toc_html += '\n'.join(f'    {item}' for item in toc_items)
+    toc_html += '\n  </ul>\n'
+    toc_html += '</nav>\n'
+
+    return toc_html
+
+
+def create_html_template(title, content, date=None, reading_time=None, toc=None, prev_post=None, next_post=None):
     """Create complete HTML page with site styling"""
     date_str = date or "Recent"
+
+    # Generate reading time HTML
+    reading_time_html = ""
+    if reading_time:
+        reading_time_html = f'<span class="reading-time">{reading_time}</span>'
+
+    # Generate TOC HTML
+    toc_html = toc if toc else ""
+
+    # Generate prev/next navigation
+    prev_next_html = '<div class="post-navigation">\n'
+    if prev_post:
+        prev_next_html += f'  <a href="../{prev_post["slug"]}/index.html" class="nav-prev">← {prev_post["title"]}</a>\n'
+    else:
+        prev_next_html += '  <span class="nav-placeholder"></span>\n'
+
+    if next_post:
+        prev_next_html += f'  <a href="../{next_post["slug"]}/index.html" class="nav-next">{next_post["title"]} →</a>\n'
+    else:
+        prev_next_html += '  <span class="nav-placeholder"></span>\n'
+    prev_next_html += '</div>\n'
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -77,12 +130,18 @@ def create_html_template(title, content, date=None):
         <article class="blog-post">
           <header class="post-header">
             <h1>{title}</h1>
-            <p class="post-meta">{date_str}</p>
+            <div class="post-meta-container">
+              <p class="post-meta">{date_str} {reading_time_html}</p>
+            </div>
           </header>
+
+          {toc_html}
 
           <div class="post-content">
             {content}
           </div>
+
+          {prev_next_html}
 
           <div class="navigation">
             <a href="../index.html" class="reference-link">← back to blog</a>
@@ -120,6 +179,7 @@ def generate_blog_posts_html(posts, link_prefix=""):
     for post in posts:
         date_formatted = format_date_month_year(post["date"])
         link = f"{link_prefix}{post['slug']}/index.html"
+
         # Use correct indentation: 14 spaces for <li>, 16 for <a> and <span>
         posts_html += f"""              <li class="blog-post-item">
                 <a href="{link}" class="blog-post-title">{post['title']}</a>
@@ -141,6 +201,7 @@ def generate_blog_index(posts):
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>kh3dron.net - blog</title>
   <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/blog.css">
   <link href="https://fonts.googleapis.com/css?family=JetBrains Mono" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -195,6 +256,16 @@ def process_markdown_content(content, content_start=0):
         r'<a href="([^"]*)">', r'<a href="\1" class="project-link">', html_content
     )
 
+    # Add IDs to h2 headings for table of contents
+    def add_heading_id(match):
+        heading_text = match.group(1)
+        heading_id = heading_text.lower().replace(" ", "-").replace("'", "")
+        # Remove special characters
+        heading_id = re.sub(r'[^\w\-]', '', heading_id)
+        return f'<h2 id="{heading_id}">{heading_text}</h2>'
+
+    html_content = re.sub(r'<h2>([^<]+)</h2>', add_heading_id, html_content)
+
     return html_content
 
 
@@ -202,48 +273,40 @@ def main():
     blog_dir = Path("blog")
     posts = []
 
-    # Process each markdown file in blog subdirectories
-    for post_dir in blog_dir.iterdir():
-        if post_dir.is_dir() and post_dir.name != "__pycache__":
-            md_file = post_dir / f"{post_dir.name}.md"
-            if md_file.exists():
-                print(f"Processing {md_file}")
+    # First pass: collect all posts metadata from numbered .md files
+    for md_file in sorted(blog_dir.glob("*.md")):
+        # Only process files that are numbers (e.g., 1.md, 2.md, etc.)
+        if md_file.stem.isdigit():
+            # Read markdown content
+            with open(md_file, "r", encoding="utf-8") as f:
+                content = f.read()
 
-                # Read markdown content
-                with open(md_file, "r", encoding="utf-8") as f:
-                    content = f.read()
-
-                # Extract metadata
-                title, date, content_start = extract_frontmatter(content)
-                if not title:
-                    title = post_dir.name.replace("-", " ").title()
-                if not date:
-                    # Use file modification time as fallback
-                    date = datetime.fromtimestamp(md_file.stat().st_mtime).strftime(
-                        "%B %d, %Y"
-                    )
-
-                # Convert markdown to HTML
-                html_content = process_markdown_content(content, content_start)
-
-                # Create full HTML page
-                full_html = create_html_template(title, html_content, date)
-
-                # Write HTML file
-                html_file = post_dir / "index.html"
-                with open(html_file, "w", encoding="utf-8") as f:
-                    f.write(full_html)
-
-                # Add to posts list for index
-                posts.append(
-                    {
-                        "title": title,
-                        "date": date,
-                        "slug": post_dir.name,
-                    }
+            # Extract metadata
+            title, date, content_start = extract_frontmatter(content)
+            if not title:
+                title = f"Post {md_file.stem}"
+            if not date:
+                # Use file modification time as fallback
+                date = datetime.fromtimestamp(md_file.stat().st_mtime).strftime(
+                    "%B %d, %Y"
                 )
 
-                print(f"Generated {html_file}")
+            # Create output directory
+            post_dir = blog_dir / md_file.stem
+            post_dir.mkdir(exist_ok=True)
+
+            # Add to posts list
+            posts.append(
+                {
+                    "title": title,
+                    "date": date,
+                    "slug": md_file.stem,
+                    "content": content,
+                    "content_start": content_start,
+                    "md_file": md_file,
+                    "post_dir": post_dir,
+                }
+            )
 
     # Sort posts by date (newest first)
     def parse_date(date_str):
@@ -259,8 +322,52 @@ def main():
 
     posts.sort(key=lambda x: parse_date(x["date"]), reverse=True)
 
-    # Generate blog index
-    blog_index = generate_blog_index(posts)
+    # Second pass: generate HTML with prev/next links
+    for i, post in enumerate(posts):
+        print(f"Processing {post['md_file']}")
+
+        # Get prev/next posts
+        prev_post = posts[i - 1] if i > 0 else None
+        next_post = posts[i + 1] if i < len(posts) - 1 else None
+
+        # Convert markdown to HTML
+        html_content = process_markdown_content(post["content"], post["content_start"])
+
+        # Calculate reading time
+        reading_time = estimate_reading_time(post["content"])
+
+        # Generate table of contents
+        toc = generate_table_of_contents(post["content"])
+
+        # Create full HTML page
+        full_html = create_html_template(
+            post["title"],
+            html_content,
+            post["date"],
+            reading_time,
+            toc,
+            prev_post,
+            next_post,
+        )
+
+        # Write HTML file
+        html_file = post["post_dir"] / "index.html"
+        with open(html_file, "w", encoding="utf-8") as f:
+            f.write(full_html)
+
+        print(f"Generated {html_file}")
+
+    # Generate blog index (simplify posts data for index)
+    posts_for_index = [
+        {
+            "title": p["title"],
+            "date": p["date"],
+            "slug": p["slug"],
+        }
+        for p in posts
+    ]
+
+    blog_index = generate_blog_index(posts_for_index)
     with open(blog_dir / "index.html", "w", encoding="utf-8") as f:
         f.write(blog_index)
 
@@ -273,7 +380,7 @@ def main():
             base_index_content = f.read()
 
         # Generate blog posts HTML for base index (with ./blog/ prefix)
-        blog_posts_html = generate_blog_posts_html(posts, link_prefix="./blog/")
+        blog_posts_html = generate_blog_posts_html(posts_for_index, link_prefix="./blog/")
 
         # Find and replace the blog posts list in the essays section
         # Match the <ul class="blog-posts">...</ul> within the essays-content div

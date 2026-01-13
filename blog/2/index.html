@@ -23,8 +23,21 @@
         <article class="blog-post">
           <header class="post-header">
             <h1>Force multiplying with AI at Laurel</h1>
-            <p class="post-meta">November 03, 2025</p>
+            <div class="post-meta-container">
+              <p class="post-meta">November 03, 2025 <span class="reading-time">11 min read</span></p>
+            </div>
           </header>
+
+          <nav class="table-of-contents">
+  <h4>Contents</h4>
+  <ul>
+    <li><a href="#the-mission" class="toc-link">The Mission</a></li>
+    <li><a href="#what-we-did" class="toc-link">What We Did</a></li>
+    <li><a href="#what-weve-learned" class="toc-link">What We've Learned</a></li>
+    <li><a href="#what-are-we-doing-next" class="toc-link">What are we doing next?</a></li>
+  </ul>
+</nav>
+
 
           <div class="post-content">
             <p><em>This is the written form of a talk I gave to an eng org considering getting "ai pilled".</em></p>
@@ -32,10 +45,10 @@
 <p>We all know there's some showbusiness in that claim - most of the firms who "don't need to hire engineers anymore" are a) still hiring engineers, and b) selling AI products themselves. But there is some truth here - SWE productivity is not pinned to headcount like it used to be.</p>
 <p>Lots of our engineers are excited about using AI tools. They've set things up individually, they use them in their side projects, but there is no official or global policy on how the company uses this stuff.</p>
 <p>This led to the invention of my role - Laurel's first "productivity engineer". A member of the infrastructure team explicitly tasked with "Setting up AI". A few months in, here's what I've learned and what I've built.</p>
-<h2>The Mission</h2>
+<h2 id="the-mission">The Mission</h2>
 <p>When I was interviewing for this job, in every round of talks I had with someone, the first 10 minutes was spent with the interviewer and I both being equally confused about what this job was actually supposed to be. In practice, I would begin the interviews by explaining to my interviewer what this job description should be, then spend the rest of the time convincing them that I was the person to do it.</p>
 <p>How do you define "using AI for softdev"? Is that just buying everyone a Cursor account? Does this need to be a whole person's job? How do you measure the success of this stuff? what comes to mind right away: lines of code generated, feature velocity, DORA metrics. These are extremely high-level metrics, with lots of room for bad incentives, but we think they are at least somewhat correlated with success here. We've started and stopped on a lot of different projects on this front, but here's a few of them that have stuc around and have shown to be really valuable.</p>
-<h2>What We Did</h2>
+<h2 id="what-we-did">What We Did</h2>
 <h3>1. Tool Wrangling</h3>
 <p>First step: inventory what we already had. It turns out we'd bought a lot of AI tools and weren't getting good use from most of them. We cataloged everything that anyone was using:</p>
 <ul>
@@ -75,7 +88,7 @@
 <p>The easy answer is model performance beta. There is only so much incremental performance we can get out of the system by effectively tricking it into being a better programmer. We are doing that, but this is a system we expect to get better every time a new foundation model comes out. So that's nice.</p>
 <p>But the real answer is what we call repo hygiene: every one of our repositories needs to have clear documentation, clear taskfiles, instructions for running the program locally, tests, coverage, and all that good stuff you expect. In practice, we all know that this kind of hygiene drifts over time, especially when you're moving at our pace. It doesn't seem like an issue when you have the same people working on the same systems all the time. But in this new world, the average opener of a pull request is not going to be someone who is on a first-name basis with every function.</p>
 <p>A few weeks ago, the CTO of a large payments company and I were talking about this issue of forcing hygeine for AI performance. My question was, Is this really worth doing? Is this not going to be needed when models just get better? He explained this sort of work as a Pascal's wager for AI. Whether or not AI can do all of your coding for you, this is the kind of work that you really should be doing anyway to improve the effectiveness of your employees who are merely human. And in the best case, where AI really can code for you, there is no world in which this hurts the performance of these tools.</p>
-<h2>What We've Learned</h2>
+<h2 id="what-weve-learned">What We've Learned</h2>
 <p>At the strategy level of running an entire engineering org, what are you supposed to do? What do you have to do to adjust, given the speed of all this? It feels completely impossible to make any kind of plans when 6 months from now the world is going to look different. There are two main things that you have to keep in mind:</p>
 <h3>The cost of re-evaluating your beliefs</h3>
 <p>Consider the ROI of re-evaluating a belief.</p>
@@ -96,9 +109,15 @@
 <h3>Being maximally useful</h3>
 <p>As an engineer, it hurts to admit this. But for most problems, buying Dust or Cursor or Devin is faster than building it ourselves. For a task which previously would have been a stretch for me to do, like something on the border of my team and another, it's now easier for me to just hand that off to the machine. My individual value as an individually contributing programmer is narrower than it used to be.</p>
 <p>The exception here - the place where I still get to write my own code - is the connective tissue. As there are more tools around, they still need to be connected to each other, and those pipes are not always available off the shelf. custom integrations for vendor-specific APIs are still necesarry, and the volume of them needed grows quadratically with your number of tools. There's an easy argument to be made that this is now me supporting the tools instead of the tools supporting me. Such is life!</p>
-<h2>What are we doing next?</h2>
+<h2 id="what-are-we-doing-next">What are we doing next?</h2>
 <p>We have lots of projects and plans in place on further ways to multiply the productivity of our human coders as well as increase the performance and decrease the annoyance from our fully headless workflows. I'm sure I will write another version of this blog post a year from now with a suite of radically different predictions and tools in use.</p>
           </div>
+
+          <div class="post-navigation">
+  <a href="../3/index.html" class="nav-prev">← The Tech Tree Beyond Self-Driving Cars</a>
+  <a href="../1/index.html" class="nav-next">Writing MCP servers to interface with your vendors →</a>
+</div>
+
 
           <div class="navigation">
             <a href="../index.html" class="reference-link">← back to blog</a>
