@@ -59,18 +59,23 @@ main li {
 
 main a {
   color: var(--link-color);
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
   transition: none;
 }
 
 main a:hover {
   color: var(--link-hover-color);
-  text-decoration: underline;
+  text-decoration-style: solid;
 }
 
 /* Header styling */
 header {
   text-align: left;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--border-color);
 }
 
 header pre {
@@ -85,7 +90,7 @@ header pre {
   right: 0;
   width: 200px;
   height: 100%;
-  border-left: 3px solid #000000;
+  border-left: 2px solid #000000;
   box-sizing: border-box;
   background-color: var(--background-color);
   z-index: 10;
@@ -193,28 +198,40 @@ main p:first-child a {
 /* Employer links styling */
 .employer-link {
   color: var(--link-color) !important;
+  text-decoration: underline !important;
+  text-decoration-style: dotted !important;
+  text-underline-offset: 2px !important;
 }
 
 .employer-link:hover {
   color: var(--link-hover-color) !important;
+  text-decoration-style: solid !important;
 }
 
 /* Project links styling */
 .project-link {
   color: var(--link-color) !important;
+  text-decoration: underline !important;
+  text-decoration-style: dotted !important;
+  text-underline-offset: 2px !important;
 }
 
 .project-link:hover {
   color: var(--link-hover-color) !important;
+  text-decoration-style: solid !important;
 }
 
 /* Reference links styling */
 .reference-link {
   color: var(--link-color) !important;
+  text-decoration: underline !important;
+  text-decoration-style: dotted !important;
+  text-underline-offset: 2px !important;
 }
 
 .reference-link:hover {
   color: var(--link-hover-color) !important;
+  text-decoration-style: solid !important;
 }
 
 /* Blog page styling */
@@ -254,12 +271,14 @@ main p:first-child a {
 
 .blog-post-title {
   color: var(--link-color);
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
   flex-shrink: 0;
 }
 
 .blog-post-title:hover {
-  text-decoration: underline;
+  text-decoration-style: solid;
 }
 
 .blog-post-date {
@@ -588,6 +607,9 @@ main p:first-child a {
   flex-direction: column;
   gap: 0.5rem;
   margin: 2rem 0;
+  padding: 1rem;
+  border: 2px solid var(--border-color);
+  background-color: var(--background-color);
 }
 
 .nav-links a {
@@ -595,11 +617,32 @@ main p:first-child a {
   text-decoration: none;
   font-size: 1em;
   cursor: pointer;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.nav-links a::before {
+  content: '▸ ';
+  position: absolute;
+  left: 0;
+  opacity: 0.3;
+}
+
+.nav-links a:hover::before {
+  opacity: 1;
 }
 
 .nav-links a:hover {
   color: var(--link-hover-color);
   text-decoration: underline;
+}
+
+.nav-links a.active {
+  font-weight: bold;
+}
+
+.nav-links a.active::before {
+  opacity: 1;
 }
 
 .content-sections {
@@ -609,6 +652,9 @@ main p:first-child a {
 .content-section {
   margin-bottom: 3rem;
   display: none;
+  padding: 1.5rem;
+  border: 2px solid var(--border-color);
+  background-color: var(--background-color);
 }
 
 .content-section.active {
@@ -617,4 +663,6 @@ main p:first-child a {
 
 .content-section h3 {
   margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
 }

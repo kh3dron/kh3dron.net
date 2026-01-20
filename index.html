@@ -30,13 +30,13 @@
       </header>
       <main>
         <nav class="nav-links">
-          <a onclick="showSection('bio')">Bio</a>
-          <a onclick="showSection('blog')">Blog</a>
-          <a onclick="showSection('reach-me')">Reach me</a>
-          <a onclick="showSection('projects')">Projects</a>
+          <a onclick="showSection('bio')" id="nav-bio" class="active">Bio</a>
+          <a onclick="showSection('blog')" id="nav-blog">Blog</a>
+          <a onclick="showSection('reach-me')" id="nav-reach-me">Reach me</a>
+          <a onclick="showSection('projects')" id="nav-projects">Projects</a>
         </nav>
         <div class="content-sections">
-          <section id="bio" class="content-section">
+          <section id="bio" class="content-section active">
             <h3>Bio</h3>
             <div class="experience-group">
               <h4>Currently:</h4>
@@ -192,10 +192,22 @@
         section.classList.remove('active');
       });
 
+      // Remove active class from all nav links
+      const navLinks = document.querySelectorAll('.nav-links a');
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+      });
+
       // Show the selected section
       const selectedSection = document.getElementById(sectionId);
       if (selectedSection) {
         selectedSection.classList.add('active');
+      }
+
+      // Mark the corresponding nav link as active
+      const activeNavLink = document.getElementById('nav-' + sectionId);
+      if (activeNavLink) {
+        activeNavLink.classList.add('active');
       }
     }
   </script>
