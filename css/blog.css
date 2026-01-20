@@ -5,21 +5,21 @@
 
 /* Color styling for blog post headings */
 .post-header h1 {
-  color: #0000FF !important;
+  color: #000000 !important;
 }
 
 .post-content h2 {
-  color: #0000FF !important;
+  color: #000000 !important;
 }
 
 .post-content h3 {
-  color: #000080 !important;
+  color: #000000 !important;
 }
 
 .post-content h4,
 .post-content h5,
 .post-content h6 {
-  color: #000080 !important;
+  color: #000000 !important;
 }
 
 /* Table styling */
@@ -39,7 +39,7 @@
 
 .post-content table th {
   background-color: #f0f0f0;
-  color: #0000FF;
+  color: #000000;
   font-weight: bold;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .reading-time {
-  color: #666666;
+  color: #000000;
   font-size: 0.9em;
 }
 
@@ -79,7 +79,7 @@
 .table-of-contents h4 {
   margin-top: 0;
   margin-bottom: 1em;
-  color: #0000FF;
+  color: #000000;
 }
 
 .table-of-contents ul {
@@ -93,12 +93,12 @@
 }
 
 .toc-link {
-  color: #0000FF;
+  color: #000000;
   text-decoration: none;
 }
 
 .toc-link:hover {
-  color: #000080;
+  color: #000000;
   text-decoration: underline;
 }
 
@@ -114,14 +114,14 @@
 
 .nav-prev,
 .nav-next {
-  color: #0000FF;
+  color: #000000;
   text-decoration: none;
   max-width: 45%;
 }
 
 .nav-prev:hover,
 .nav-next:hover {
-  color: #000080;
+  color: #000000;
   text-decoration: underline;
 }
 

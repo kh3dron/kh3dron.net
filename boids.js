@@ -39,11 +39,11 @@ class Boid {
     this.x += this.vx;
     this.y += this.vy;
 
-    // Wrap around edges
-    if (this.x < 0) this.x = window.innerWidth;
-    if (this.x > window.innerWidth) this.x = 0;
-    if (this.y < 0) this.y = window.innerHeight;
-    if (this.y > window.innerHeight) this.y = 0;
+    // Wrap around edges - constrain to fishtank
+    if (this.x < 0) this.x = canvas.width;
+    if (this.x > canvas.width) this.x = 0;
+    if (this.y < 0) this.y = canvas.height;
+    if (this.y > canvas.height) this.y = 0;
   }
 
   separate(boids) {
@@ -208,11 +208,12 @@ class Boid {
 // Initialize canvas and boids
 const canvas = document.getElementById("boids-canvas");
 const ctx = canvas.getContext("2d");
+const fishtank = document.getElementById("boids-fishtank");
 
-// Set canvas size
+// Set canvas size to fishtank dimensions
 function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  canvas.width = fishtank ? fishtank.offsetWidth : 200;
+  canvas.height = fishtank ? fishtank.offsetHeight : window.innerHeight;
 }
 
 resizeCanvas();
@@ -224,8 +225,8 @@ function createBoids(count) {
   for (let i = 0; i < count; i++) {
     boids.push(
       new Boid(
-        Math.random() * window.innerWidth,
-        Math.random() * window.innerHeight,
+        Math.random() * canvas.width,
+        Math.random() * canvas.height,
       ),
     );
   }
@@ -266,7 +267,7 @@ function spawnBoidAtMouse(e) {
   if (currentTime - lastSpawnTime >= spawnRateLimit) {
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const y = Math.min(e.clientY - rect.top, canvas.height); // Clamp to fishtank height
 
     boids.push(new Boid(x, y));
     lastSpawnTime = currentTime;

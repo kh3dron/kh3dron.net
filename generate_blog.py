@@ -83,10 +83,9 @@ def create_html_template(title, content, date=None):
           </div>
 
           <div class="navigation">
-            <a href="../index.html" class="reference-link">← back to blog</a>
             <a href="../../index.html" class="reference-link">← back to home</a>
           </div>
-        </article>
+        </article>º
       </main>
     </div>
   </div>
