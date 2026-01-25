@@ -65,7 +65,9 @@ def create_html_template(title, content, date=None):
 </head>
 
 <body>
-  <canvas id="boids-canvas"></canvas>
+  <div id="boids-fishtank">
+    <canvas id="boids-canvas"></canvas>
+  </div>
 
   <div class="text-container">
     <div class="content-box">
