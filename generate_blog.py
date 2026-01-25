@@ -85,7 +85,7 @@ def create_html_template(title, content, date=None):
           <div class="navigation">
             <a href="../../index.html" class="reference-link">← back to home</a>
           </div>
-        </article>º
+        </article>
       </main>
     </div>
   </div>
@@ -298,7 +298,7 @@ def main():
 
         # Find and replace the blog posts list in the essays section
         # Match the <ul class="blog-posts">...</ul> within the essays-content div
-        pattern = r'(<section id="blog" class="content-section">\s*<ul class="blog-posts">).*?(</ul>\s*</section>)'
+        pattern = r'(<section id="blog" class="content-section">\s*<h3>blog</h3>\s*<ul class="blog-posts">).*?(</ul>\s*</section>)'
         replacement = r"\1\n" + blog_posts_html + r"            \2"
 
         updated_content = re.sub(
