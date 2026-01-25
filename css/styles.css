@@ -436,12 +436,12 @@ main p:first-child a {
   }
 
   #boids-fishtank {
-    width: 150px;
+    display: none;
   }
 
   .text-container {
     padding: 1em;
-    width: calc(100% - 150px);
+    width: 100%;
   }
 
   .content-box {
@@ -480,12 +480,12 @@ main p:first-child a {
   }
 
   #boids-fishtank {
-    width: 100px;
+    display: none;
   }
 
   .text-container {
     padding: 0.5em;
-    width: calc(100% - 100px);
+    width: 100%;
   }
 
   header pre {

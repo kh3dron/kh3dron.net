@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Factory Must Grow (Without You) - kh3dron.net</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/blog.css">
+  <link href="https://fonts.googleapis.com/css?family=JetBrains Mono" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+  <canvas id="boids-canvas"></canvas>
+
+  <div class="text-container">
+    <div class="content-box">
+      <main>
+        <article class="blog-post">
+          <header class="post-header">
+            <h1>The Factory Must Grow (Without You)</h1>
+            <div class="post-meta-container">
+              <p class="post-meta">January 25, 2026</p>
+            </div>
+          </header>
+
+          <div class="post-content">
+            <p>If you’re reading my blog you probably know what Factorio is. It’s an automation game, where you build a factory automating increasingly complicated production chains, and the only end product is production itself. You need to manufacture iron and copper to make green circuits, then you can use iron, copper, and green circuits together to make electric drills, which can help you increase your iron and copper ore production, and so on. Every single mechanic of this game is exponentually self-accelerating.</p>
+<p>An antipattern that can emerge in this game is “handcrafting”; creating an item by hand instead of automating its production. This can save a lot of time in the short run, but creates debt that inevitably has to be cleaned up. Every item will eventually be needed in the thousands; hand crafting is never a long term solution.</p>
+<p>A common modification for advanced players is a "10x run". In this version of the game, every component requires 10 times more input ingredients to produce. Real suckers for punishment will play 100x or 1,000x runs. Bases in these games look different - Obviously they're bigger, but the main difference is that they are far more parallel and automated: handcrafting is proportionally untenable. In a standard game, you can limp past certain milestones by handcrafting, say, 100 electric engines, but you can't make 100,000 of them that way. <strong>YOUR capabilities are not scaled by 1,000x, only the production demands are; therefore, it is 1,000 times more important that your systems work without you.</strong> At sufficient scale, it actually takes longer to do it the "easy" way than to just do it right.</p>
+<p>Let's connect this to something real. My startup, like many others, is planning on increasing our velocity of work with coding agents. Our (LoC committed / tickets closed / features shipped per day / some other basket of metrics) will likely grow by at least one order of magniture this year. How are we preparing for this? By proportionaly re-marking the cost of our operational debt. If we want to produce X times more work, our process friction costs X times more. A quirk that halts an individual human coder for an hour can halt a swarm of agents for effective weeks at a time.</p>
+<p>This issue became especially apparent to me when I recently read this line in the readme of one of our webapps:</p>
+<blockquote>
+<p>To run the service locally, DM someone on the frontend team and get the .env file from them.</p>
+</blockquote>
+<p>So, for one thing, I was halted until I could reach someone with this file I needed. And two, if these values ever changed, we'd have the whole company have to go through the same process to regenerate this file and spread it around. This landmine isn't great for me to land on, and it's certainly not great for 100 times more claudes out there who are unable to interact with other employees as well as I can (well, for now).</p>
+<p>For the last month, I've been working on exactly this problem - wrapping more of the things I do <em>before</em> I start coding into work that Claude can do for me. This has meant turning more of the steps surrounding code-writing into work doable from a terminal:</p>
+<ul>
+<li>Reading and updating tickets: accessible via Linear's API and MCP server</li>
+<li>Setting up repos for local testing, populating .env files: Taskfiles and the 1Password CLI</li>
+<li>Testing: taskfiles, coverage, strong CI basics</li>
+<li>Reading documentation: store repo-specific docs in the repos, company-wide docs reachable through documentation aggregator platforms, which support API access</li>
+<li>Opening PRs: Claude rules for git practices, codeowners, and more agents running in automatic review loops</li>
+</ul>
+<p>Claude can now interact with our IAC state; he can run kubectl commands directly in our clusters, he can run metrics queries, he can read docs from prior incidents, he can ingest and update architecture diagrams. This all makes him much better at writing code that passes unit tests, but also much better at interacting with our stack and understanding the state of things. I am not yet just throwing bare tickets at claude (though we're working on this too), but what I can do is start my sessions earlier in the problem solving process. Instead of just saving time coding, I'm also saving the time spent framing the problem in systems knowledge.</p>
+<p>The mantra I have been yelling at my engineering org is that "The average 'worker' will soon be headless". In 2026, the mean writer-of-code be non-human. Please make your organizations welcoming to the swarm.</p>
+          </div>
+
+          <div class="navigation">
+            <a href="../../index.html" class="reference-link">← back to home</a>
+          </div>
+        </article>º
+      </main>
+    </div>
+  </div>
+
+  <script src="../../theme.js"></script>
+  <script src="../../boids.js"></script>
+</body>
+
+</html>
