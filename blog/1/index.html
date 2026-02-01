@@ -50,25 +50,25 @@
 </ul>
 <h2>Writing the Functions</h2>
 <p>Launchdarkly has a great API with tons of endpoints. We can knock out all these use cases hitting only a few of these endpoints. Immediately, we hit our first inferred requirement: our CSMs (the ones who are requesting this feature) won't always know the exact name of who they're asking for. For example, the customer firm might be called "Abbott &amp; Costello Partners", but show up as "ACO Users" in the LaunchDarkly UI, and have the key of <code>all_aco_users</code> when using the LD API. Fortunately, this is the sort of thing we can mostly offload to the LLMs. The first functions to write are:</p>
-<pre class="codehilite"><code class="language-python">get_projects()
-get_flags(project)
-get_environments(project)
-get_segments(project, environment)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">get_projects</span><span class="p">()</span>
+<span class="n">get_flags</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+<span class="n">get_environments</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+<span class="n">get_segments</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">environment</span><span class="p">)</span>
+</code></pre></div>
 
 <p>Each of which return a dict of textual name : key pairs. These are called first to translate user requests into queries on keys into the later methods. Those later methods are:</p>
-<pre class="codehilite"><code class="language-python"># shows which flags are New, Active, Launched, Inactive 
-get_flag_status_for_project(project)
+<div class="codehilite"><pre><span></span><code><span class="c1"># shows which flags are New, Active, Launched, Inactive </span>
+<span class="n">get_flag_status_for_project</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
 
-# returns true/false for one flag and one segment
-is_flag_enabled_for_segment(project, environment, segment)
+<span class="c1"># returns true/false for one flag and one segment</span>
+<span class="n">is_flag_enabled_for_segment</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">segment</span><span class="p">)</span>
 
-# shows the policy JSON blob for which firms have a flag enabled/disabled
-get_flag_policy(project, environment, flag)
+<span class="c1"># shows the policy JSON blob for which firms have a flag enabled/disabled</span>
+<span class="n">get_flag_policy</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">flag</span><span class="p">)</span>
 
-# for each in (get all flags) checks is_flag_enabled_for_segment, returns list of Ons and Offs
-get_all_flags_for_segment(project, environment, segment)
-</code></pre>
+<span class="c1"># for each in (get all flags) checks is_flag_enabled_for_segment, returns list of Ons and Offs</span>
+<span class="n">get_all_flags_for_segment</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="n">segment</span><span class="p">)</span>
+</code></pre></div>
 
 <p>I'm going to assume you know how to write these functions, including API auth, validation, error handling, and some parallelism for that last one.</p>
 <h2>Turning this into an MCP server</h2>
@@ -77,16 +77,16 @@ get_all_flags_for_segment(project, environment, segment)
 <p>For testing this, there's 2 tools I use: the first is <a href="https://modelcontextprotocol.io/legacy/tools/inspector" class="project-link">MCP inspector</a>. It launches a nice web UI that lets you call tools manually, like swagger docs.</p>
 <p><img alt="MCP Inspector" src="inspector.png" title="MCP Inspector" /></p>
 <p>Once I've done my "unit tests" there, I use the MCP in claude code pointed at localhost to make sure the tools can call eachother correctly. I just drop this at the top level of my <code>.claude.json</code>:</p>
-<pre class="codehilite"><code class="language-json">  &quot;mcpServers&quot;: {
-    &quot;launchdarkly-local&quot;: {
-      &quot;type&quot;: &quot;http&quot;,
-      &quot;url&quot;: &quot;http://localhost:8080/mcp&quot;
-    },
-    &quot;env&quot;: {
-      &quot;API_KEY&quot;: &quot;your_launchdarkly_api_key&quot;
-    }
-  }
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;launchdarkly-local&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost:8080/mcp&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;env&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;API_KEY&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_launchdarkly_api_key&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+</code></pre></div>
 
 <p>Launch Claude code, run /mcp to make sure that connection works, and that you can see all your tools. I invoke the MCP by asking a question, sometimes adding "Use the LaunchDarkly MCP" to be sure it goes right for that.</p>
 <!-- ![claude code connecting to the MCP](claude-connected.png "Successful connection in Claude Code") -->

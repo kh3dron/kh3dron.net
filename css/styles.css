@@ -325,6 +325,12 @@ main p:first-child a {
   margin-bottom: 1rem;
 }
 
+.post-content p:first-child {
+  display: block;
+  text-align: left;
+  justify-content: unset;
+}
+
 .post-content ul {
   margin: 1rem 0 1rem 2rem;
 }

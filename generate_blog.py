@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Static blog generator for kh3dron.net
+Static site generator for kh3dron.net
 Converts markdown files to HTML using the site's styling
+Supports blog and fiction sections
 """
 
 import os
@@ -11,6 +12,19 @@ from datetime import datetime
 import markdown
 from markdown.extensions import codehilite, fenced_code
 import yaml
+
+
+# Configuration for each content section
+SECTIONS = {
+    "blog": {
+        "dir": "blog",
+        "title": "blog",
+    },
+    "fiction": {
+        "dir": "fiction",
+        "title": "fiction",
+    },
+}
 
 
 def extract_frontmatter(content):
@@ -113,8 +127,8 @@ def format_date_month_year(date_str):
         return date_str
 
 
-def generate_blog_posts_html(posts, link_prefix=""):
-    """Generate HTML for blog posts list"""
+def generate_posts_html(posts, link_prefix=""):
+    """Generate HTML for posts list"""
     posts_html = ""
     for post in posts:
         date_formatted = format_date_month_year(post["date"])
@@ -127,49 +141,6 @@ def generate_blog_posts_html(posts, link_prefix=""):
               </li>
 """
     return posts_html
-
-
-def generate_blog_index(posts):
-    """Generate the blog index page with all posts"""
-    posts_html = generate_blog_posts_html(posts)
-
-    return f"""<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>kh3dron.net - blog</title>
-  <link rel="stylesheet" href="../css/styles.css">
-  <link rel="stylesheet" href="../css/blog.css">
-  <link href="https://fonts.googleapis.com/css?family=JetBrains Mono" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-
-<body>
-  <canvas id="boids-canvas"></canvas>
-
-  <!-- Theme toggle button -->
-  <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle-btn">dark</button>
-
-  <div class="text-container">
-    <div class="content-box">
-      <main>
-        <h3>blog</h3>
-        <ul class="blog-posts">
-{posts_html}        </ul>
-        <div class="navigation">
-          <a href="../index.html" class="reference-link">← back to home</a>
-        </div>
-      </main>
-    </div>
-  </div>
-
-  <script src="../theme.js"></script>
-  <script src="../boids.js"></script>
-</body>
-
-</html>"""
 
 
 def process_markdown_content(content, content_start=0):
@@ -197,12 +168,37 @@ def process_markdown_content(content, content_start=0):
     return html_content
 
 
-def main():
-    blog_dir = Path("blog")
+def parse_date(date_str):
+    """Parse date string to datetime for sorting"""
+    if not date_str:
+        return datetime.min
+    # Try multiple date formats
+    formats = [
+        "%B %d, %Y",  # "September 15, 2025"
+        "%B %Y",      # "September 2025"
+        "%Y",         # "2025"
+    ]
+    for fmt in formats:
+        try:
+            return datetime.strptime(date_str, fmt)
+        except ValueError:
+            continue
+    # If all parsing fails, return min date to push to end
+    return datetime.min
+
+
+def process_section(section_name, section_config):
+    """Process all markdown files in a section and generate HTML"""
+    section_dir = Path(section_config["dir"])
+
+    if not section_dir.exists():
+        print(f"Section directory {section_dir} does not exist, skipping")
+        return []
+
     posts = []
 
     # First pass: collect all posts metadata from numbered .md files
-    for md_file in sorted(blog_dir.glob("*.md")):
+    for md_file in sorted(section_dir.glob("*.md")):
         # Only process files that are numbers (e.g., 1.md, 2.md, etc.)
         if md_file.stem.isdigit():
             # Read markdown content
@@ -220,7 +216,7 @@ def main():
                 )
 
             # Create output directory
-            post_dir = blog_dir / md_file.stem
+            post_dir = section_dir / md_file.stem
             post_dir.mkdir(exist_ok=True)
 
             # Add to posts list
@@ -237,17 +233,6 @@ def main():
             )
 
     # Sort posts by date (newest first)
-    def parse_date(date_str):
-        """Parse date string to datetime for sorting"""
-        if not date_str:
-            return datetime.min
-        try:
-            # Try parsing formats like "September 15, 2025" or "November 03, 2025"
-            return datetime.strptime(date_str, "%B %d, %Y")
-        except ValueError:
-            # If parsing fails, return min date to push to end
-            return datetime.min
-
     posts.sort(key=lambda x: parse_date(x["date"]), reverse=True)
 
     # Second pass: generate HTML
@@ -271,8 +256,8 @@ def main():
 
         print(f"Generated {html_file}")
 
-    # Generate blog index (simplify posts data for index)
-    posts_for_index = [
+    # Return simplified posts data for base index
+    return [
         {
             "title": p["title"],
             "date": p["date"],
@@ -281,36 +266,44 @@ def main():
         for p in posts
     ]
 
-    blog_index = generate_blog_index(posts_for_index)
-    with open(blog_dir / "index.html", "w", encoding="utf-8") as f:
-        f.write(blog_index)
 
-    print(f"Generated blog index with {len(posts)} posts")
-
-    # Update base index.html with blog posts
+def update_base_index(section_posts):
+    """Update base index.html with posts from all sections"""
     base_index_path = Path("index.html")
-    if base_index_path.exists():
-        with open(base_index_path, "r", encoding="utf-8") as f:
-            base_index_content = f.read()
+    if not base_index_path.exists():
+        return
 
-        # Generate blog posts HTML for base index (with ./blog/ prefix)
-        blog_posts_html = generate_blog_posts_html(
-            posts_for_index, link_prefix="./blog/"
-        )
+    with open(base_index_path, "r", encoding="utf-8") as f:
+        base_index_content = f.read()
 
-        # Find and replace the blog posts list in the essays section
-        # Match the <ul class="blog-posts">...</ul> within the essays-content div
-        pattern = r'(<section id="blog" class="content-section">\s*<h3>blog</h3>\s*<ul class="blog-posts">).*?(</ul>\s*</section>)'
-        replacement = r"\1\n" + blog_posts_html + r"            \2"
+    # Update each section
+    for section_name, posts in section_posts.items():
+        section_config = SECTIONS[section_name]
+        posts_html = generate_posts_html(posts, link_prefix=f"./{section_config['dir']}/")
 
-        updated_content = re.sub(
+        # Find and replace the posts list in this section
+        pattern = rf'(<section id="{section_name}" class="content-section">\s*<h3>{section_config["title"]}</h3>\s*<ul class="blog-posts">).*?(</ul>\s*</section>)'
+        replacement = r"\1\n" + posts_html + r"            \2"
+
+        base_index_content = re.sub(
             pattern, replacement, base_index_content, flags=re.DOTALL
         )
 
-        with open(base_index_path, "w", encoding="utf-8") as f:
-            f.write(updated_content)
+    with open(base_index_path, "w", encoding="utf-8") as f:
+        f.write(base_index_content)
 
-        print(f"Updated base index.html with {len(posts)} posts")
+    total_posts = sum(len(posts) for posts in section_posts.values())
+    print(f"Updated base index.html with {total_posts} total posts")
+
+
+def main():
+    section_posts = {}
+
+    for section_name, section_config in SECTIONS.items():
+        posts = process_section(section_name, section_config)
+        section_posts[section_name] = posts
+
+    update_base_index(section_posts)
 
 
 if __name__ == "__main__":
