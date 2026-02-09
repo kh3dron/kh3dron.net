@@ -1,15 +1,15 @@
 :root {
-  --primary-color: #000000;
-  --background-color: #ffffff;
-  --secondary-color: #000000;
+  --primary-color: #ffffff;
+  --background-color: transparent;
+  --secondary-color: #ffffff;
   --border-radius: 0;
-  --link-color: #000000;
-  --link-hover-color: #000000;
-  --border-color: #000000;
-  --content-bg: #ffffff;
-  --shadow-color: #000000;
-  --code-bg: #ffffff;
-  --code-color: #000000;
+  --link-color: #ffffff;
+  --link-hover-color: #ffffff;
+  --border-color: rgba(255, 255, 255, 0.4);
+  --content-bg: rgba(0, 0, 0, 0.4);
+  --shadow-color: rgba(0, 0, 0, 0.8);
+  --code-bg: rgba(0, 0, 0, 0.5);
+  --code-color: #ffffff;
 }
 
 * {
@@ -26,17 +26,21 @@ html {
 body {
   font-family: "JetBrains Mono";
   font-size: 16px;
-  background-color: var(--background-color);
+  background: url('../window.jpg') no-repeat center center, black;
+  background-size: cover;
+  background-attachment: fixed;
   line-height: 1.2;
   overflow: hidden;
   height: 100%;
   position: fixed;
   width: 100%;
+  color: var(--primary-color);
 }
 
 /* Main content styling */
 main {
   margin-left: 20px;
+  text-shadow: 2px 2px 4px var(--shadow-color);
 }
 
 main div {
@@ -82,43 +86,20 @@ header pre {
   color: var(--primary-color);
   display: inline-block;
   text-align: left;
+  text-shadow: 2px 2px 4px var(--shadow-color);
 }
 
-#boids-fishtank {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 200px;
-  height: 100%;
-  border-left: 2px solid #000000;
-  box-sizing: border-box;
-  background-color: var(--background-color);
-  z-index: 10;
-  pointer-events: auto;
-}
-
-#boids-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: auto;
-  touch-action: none;
-}
-
-/* Container for all text content - positioned left of fishtank */
+/* Container for all text content */
 .text-container {
   position: fixed;
   top: 0;
   left: 0;
-  width: calc(100% - 200px);
+  width: 100%;
   height: 100%;
   overflow-y: auto;
   z-index: 1;
   padding: 2em;
   box-sizing: border-box;
-  pointer-events: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -135,20 +116,7 @@ header pre {
   padding: 0;
   max-width: 1000px;
   width: 100%;
-  pointer-events: auto;
   box-shadow: none;
-}
-
-/* Make text content not interfere with canvas mouse events */
-main,
-header {
-  pointer-events: none;
-}
-
-/* Allow content-box and its children to be clickable */
-.content-box,
-.content-box * {
-  pointer-events: auto;
 }
 
 /* Remove individual backgrounds since content-box handles it */
@@ -160,6 +128,7 @@ main div {
 header {
   padding: 0;
   margin-bottom: 1rem;
+  margin-left: 20px;
 }
 
 h3 {
@@ -363,40 +332,18 @@ main p:first-child a {
   color: var(--code-color);
 }
 
-/* Python syntax highlighting - ANSI colors only */
-.post-content .codehilite .n {
-  color: #000000;
-} /* Names */
-.post-content .codehilite .p {
-  color: #000000;
-} /* Punctuation */
-.post-content .codehilite .c1 {
-  color: #000000;
-} /* Comments - Green */
-.post-content .codehilite .s2 {
-  color: #000000;
-} /* Strings - Yellow */
-.post-content .codehilite .nt {
-  color: #000000;
-} /* Name.Tag (JSON keys) - Cyan */
-.post-content .codehilite .w {
-  color: #000000;
-} /* Whitespace */
-.post-content .codehilite .k {
-  color: #000000;
-} /* Keywords - Blue */
-.post-content .codehilite .kn {
-  color: #000000;
-} /* Keyword.Namespace - Blue */
-.post-content .codehilite .o {
-  color: #000000;
-} /* Operators */
-.post-content .codehilite .nb {
-  color: #000000;
-} /* Name.Builtin - Magenta */
-.post-content .codehilite .nf {
-  color: #000000;
-} /* Name.Function - Red */
+/* Syntax highlighting - all white on dark */
+.post-content .codehilite .n { color: #ffffff; }
+.post-content .codehilite .p { color: #ffffff; }
+.post-content .codehilite .c1 { color: #999999; }
+.post-content .codehilite .s2 { color: #cccccc; }
+.post-content .codehilite .nt { color: #cccccc; }
+.post-content .codehilite .w { color: #ffffff; }
+.post-content .codehilite .k { color: #ffffff; }
+.post-content .codehilite .kn { color: #ffffff; }
+.post-content .codehilite .o { color: #ffffff; }
+.post-content .codehilite .nb { color: #ffffff; }
+.post-content .codehilite .nf { color: #ffffff; }
 
 .post-content a {
   color: var(--link-color);
@@ -441,10 +388,6 @@ main p:first-child a {
     font-size: 14px;
   }
 
-  #boids-fishtank {
-    display: none;
-  }
-
   .text-container {
     padding: 1em;
     width: 100%;
@@ -485,10 +428,6 @@ main p:first-child a {
     font-size: 12px;
   }
 
-  #boids-fishtank {
-    display: none;
-  }
-
   .text-container {
     padding: 0.5em;
     width: 100%;
@@ -527,7 +466,7 @@ main p:first-child a {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--content-bg);
+  background-color: rgba(0, 0, 0, 0.85);
   border: 2px solid var(--border-color);
   border-radius: 0;
   padding: 2rem;
@@ -570,7 +509,7 @@ main p:first-child a {
 
 .email-popup .copy-btn:hover {
   background-color: var(--link-color);
-  color: var(--background-color);
+  color: #000000;
 }
 
 .copy-feedback {
@@ -593,7 +532,7 @@ main p:first-child a {
 
 .email-popup .close-btn:hover {
   background-color: var(--primary-color);
-  color: var(--background-color);
+  color: #000000;
 }
 
 .popup-overlay {
@@ -615,7 +554,7 @@ main p:first-child a {
   margin: 2rem 0;
   padding: 1rem;
   border: 2px solid var(--border-color);
-  background-color: var(--background-color);
+  background-color: var(--content-bg);
 }
 
 .nav-links a {
@@ -628,7 +567,7 @@ main p:first-child a {
 }
 
 .nav-links a::before {
-  content: '▸ ';
+  content: '\25B8 ';
   position: absolute;
   left: 0;
   opacity: 0.3;
@@ -660,7 +599,7 @@ main p:first-child a {
   display: none;
   padding: 1.5rem;
   border: 2px solid var(--border-color);
-  background-color: var(--background-color);
+  background-color: var(--content-bg);
 }
 
 .content-section.active {

@@ -13,10 +13,6 @@
 </head>
 
 <body>
-  <div id="boids-fishtank">
-    <canvas id="boids-canvas"></canvas>
-  </div>
-
   <div class="text-container">
     <div class="content-box">
       <header>
@@ -77,7 +73,7 @@
             </div>
           </section>
           <section id="blog" class="content-section">
-            <h3>blog</h3>
+            <h3>Blog</h3>
             <ul class="blog-posts">
               <li class="blog-post-item">
                 <a href="./blog/5/index.html" class="blog-post-title">The Factory Must Grow (Without You)</a>
@@ -103,7 +99,7 @@
             </ul>
           </section>
           <section id="fiction" class="content-section">
-            <h3>fiction</h3>
+            <h3>Fiction</h3>
             <ul class="blog-posts">
               <li class="blog-post-item">
                 <a href="./fiction/2/index.html" class="blog-post-title">Fold Caves</a>
@@ -140,6 +136,11 @@
           </section>
         </div>
       </main>
+      <p style="margin-top: 2rem; font-size: 0.75em; color: grey; font-style: italic;">
+        Background image from the <a
+          href="https://www.flickr.com/photos/projectapolloarchive/21755871100/in/album-72157657129869694/"
+          style="color: grey;">Apollo Archives</a>
+      </p>
     </div>
   </div>
 
@@ -157,7 +158,6 @@
     <button class="close-btn" onclick="hideEmailPopup()">Close</button>
   </div>
 
-  <script src="boids.js"></script>
   <script>
     function showEmailPopup() {
       document.getElementById('popupOverlay').style.display = 'block';

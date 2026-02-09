@@ -1,25 +1,38 @@
 /* Blog-specific overrides */
 .content-box {
-  max-width: 1200px !important;
+  max-width: 980px !important;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 1.5rem !important;
+  border: 2px solid rgba(255, 255, 255, 0.4) !important;
+  margin-left: 20px;
+}
+
+.post-header {
+  margin-left: calc(22px + 1.5rem);
+  border-bottom: none;
+}
+
+.content-box main {
+  margin-left: 0;
 }
 
 /* Color styling for blog post headings */
 .post-header h1 {
-  color: #000000 !important;
+  color: #ffffff !important;
 }
 
 .post-content h2 {
-  color: #000000 !important;
+  color: #ffffff !important;
 }
 
 .post-content h3 {
-  color: #000000 !important;
+  color: #ffffff !important;
 }
 
 .post-content h4,
 .post-content h5,
 .post-content h6 {
-  color: #000000 !important;
+  color: #ffffff !important;
 }
 
 /* Table styling */
@@ -32,23 +45,23 @@
 
 .post-content table th,
 .post-content table td {
-  border: 1px solid #000000;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   padding: 12px 16px;
   text-align: left;
 }
 
 .post-content table th {
-  background-color: #f0f0f0;
-  color: #000000;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
   font-weight: bold;
 }
 
 .post-content table tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .post-content table tr:hover {
-  background-color: #f0f0f0;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 
@@ -60,7 +73,7 @@
 }
 
 .reading-time {
-  color: #000000;
+  color: #ffffff;
   font-size: 0.9em;
 }
 
@@ -72,14 +85,14 @@
 .table-of-contents {
   margin: 2em 0;
   padding: 1.5em;
-  border: 1px solid #000000;
-  background-color: #f9f9f9;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .table-of-contents h4 {
   margin-top: 0;
   margin-bottom: 1em;
-  color: #000000;
+  color: #ffffff;
 }
 
 .table-of-contents ul {
@@ -93,12 +106,12 @@
 }
 
 .toc-link {
-  color: #000000;
+  color: #ffffff;
   text-decoration: none;
 }
 
 .toc-link:hover {
-  color: #000000;
+  color: #ffffff;
   text-decoration: underline;
 }
 
@@ -108,20 +121,20 @@
   justify-content: space-between;
   margin: 3em 0 2em 0;
   padding-top: 2em;
-  border-top: 1px solid #000000;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
   gap: 2em;
 }
 
 .nav-prev,
 .nav-next {
-  color: #000000;
+  color: #ffffff;
   text-decoration: none;
   max-width: 45%;
 }
 
 .nav-prev:hover,
 .nav-next:hover {
-  color: #000000;
+  color: #ffffff;
   text-decoration: underline;
 }
 

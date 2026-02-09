@@ -79,21 +79,16 @@ def create_html_template(title, content, date=None):
 </head>
 
 <body>
-  <div id="boids-fishtank">
-    <canvas id="boids-canvas"></canvas>
-  </div>
-
   <div class="text-container">
+    <header class="post-header">
+      <h1>{title}</h1>
+      <div class="post-meta-container">
+        <p class="post-meta">{date_str}</p>
+      </div>
+    </header>
     <div class="content-box">
       <main>
         <article class="blog-post">
-          <header class="post-header">
-            <h1>{title}</h1>
-            <div class="post-meta-container">
-              <p class="post-meta">{date_str}</p>
-            </div>
-          </header>
-
           <div class="post-content">
             {content}
           </div>
@@ -106,8 +101,6 @@ def create_html_template(title, content, date=None):
     </div>
   </div>
 
-  <script src="../../theme.js"></script>
-  <script src="../../boids.js"></script>
 </body>
 
 </html>"""
