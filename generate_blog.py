@@ -141,14 +141,24 @@ def process_markdown_content(content, content_start=0):
     # Convert markdown to HTML (skip frontmatter and title)
     lines = content.split("\n")
 
-    # Skip frontmatter if present
-    actual_content_start = content_start
-    for i in range(content_start, len(lines)):
-        if lines[i].startswith("# "):
-            actual_content_start = i + 1
+    # Skip frontmatter, then remove the first H1 only if it appears before any
+    # substantive content (i.e., it's acting as the post title, already in the template)
+    post_lines = lines[content_start:]
+    found_content = False
+    title_line_idx = None
+    for i, line in enumerate(post_lines):
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if stripped.startswith("# ") and not found_content:
+            title_line_idx = i
             break
+        found_content = True
 
-    content_without_title = "\n".join(lines[actual_content_start:])
+    if title_line_idx is not None:
+        post_lines = post_lines[:title_line_idx] + post_lines[title_line_idx + 1:]
+
+    content_without_title = "\n".join(post_lines)
 
     md = markdown.Markdown(extensions=["fenced_code", "codehilite", "tables"])
     html_content = md.convert(content_without_title)
