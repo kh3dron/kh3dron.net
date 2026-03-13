@@ -18,11 +18,11 @@ import yaml
 SECTIONS = {
     "blog": {
         "dir": "blog",
-        "title": "blog",
+        "title": "Blog",
     },
     "fiction": {
         "dir": "fiction",
-        "title": "fiction",
+        "title": "Fiction",
     },
 }
 
