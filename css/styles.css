@@ -26,9 +26,7 @@ html {
 body {
   font-family: "JetBrains Mono";
   font-size: 16px;
-  background: url('../window.jpg') no-repeat center center, black;
-  background-size: cover;
-  background-attachment: fixed;
+  background: #15181f;
   line-height: 1.2;
   overflow: hidden;
   height: 100%;
@@ -40,7 +38,10 @@ body {
 /* Main content styling */
 main {
   margin-left: 20px;
-  text-shadow: 2px 2px 4px var(--shadow-color);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.5rem;
 }
 
 main div {
@@ -86,7 +87,14 @@ header pre {
   color: var(--primary-color);
   display: inline-block;
   text-align: left;
-  text-shadow: 2px 2px 4px var(--shadow-color);
+}
+
+/* Profile picture (top-left header avatar) */
+.pfp {
+  height: 120px;
+  width: auto;
+  flex-shrink: 0;
+  border-radius: 4px;
 }
 
 /* Container for all text content */
@@ -102,7 +110,7 @@ header pre {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-y;
@@ -127,8 +135,12 @@ main div {
 
 header {
   padding: 0;
+  padding-bottom: 1rem;
   margin-bottom: 1rem;
   margin-left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 h3 {
@@ -230,11 +242,8 @@ main p:first-child a {
 }
 
 .blog-post-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 0.5rem;
-  gap: 1rem;
+  display: list-item;
+  margin-bottom: 1.25rem;
   list-style-position: outside;
 }
 
@@ -243,7 +252,6 @@ main p:first-child a {
   text-decoration: underline;
   text-decoration-style: dotted;
   text-underline-offset: 2px;
-  flex-shrink: 0;
 }
 
 .blog-post-title:hover {
@@ -251,9 +259,11 @@ main p:first-child a {
 }
 
 .blog-post-date {
+  display: block;
   color: var(--primary-color);
-  white-space: nowrap;
-  margin-left: auto;
+  opacity: 0.6;
+  font-size: 0.85em;
+  margin-top: 0.15rem;
 }
 
 /* Individual blog post styling */
@@ -298,6 +308,7 @@ main p:first-child a {
   display: block;
   text-align: left;
   justify-content: unset;
+  margin-bottom: 1rem;
 }
 
 .post-content ul {
@@ -398,20 +409,37 @@ main p:first-child a {
     width: 95%;
   }
 
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
   header pre {
     font-size: 0.5em;
   }
 
+  .pfp {
+    height: 80px;
+  }
+
   main {
     margin-left: 0;
+    flex-direction: column;
+    gap: 1rem;
   }
 
-  .blog-post-date {
-    display: none;
+  .nav-links {
+    flex: none;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    position: static;
   }
 
-  .blog-post-item {
-    display: list-item;
+  .content-sections {
+    margin-top: 0;
   }
 
   .collapsible-toggle {
@@ -437,17 +465,13 @@ main p:first-child a {
     font-size: 0.35em;
   }
 
+  .pfp {
+    height: 64px;
+  }
+
   .content-box {
     padding: 1rem;
     width: 98%;
-  }
-
-  .blog-post-date {
-    display: none;
-  }
-
-  .blog-post-item {
-    display: list-item;
   }
 
   h3 {
@@ -551,10 +575,11 @@ main p:first-child a {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin: 2rem 0;
-  padding: 1rem;
-  border: 2px solid var(--border-color);
-  background-color: var(--content-bg);
+  margin: 0;
+  padding: 0;
+  flex: 0 0 180px;
+  position: sticky;
+  top: 0;
 }
 
 .nav-links a {
@@ -591,15 +616,15 @@ main p:first-child a {
 }
 
 .content-sections {
-  margin-top: 2rem;
+  margin-top: 0;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .content-section {
   margin-bottom: 3rem;
   display: none;
-  padding: 1.5rem;
-  border: 2px solid var(--border-color);
-  background-color: var(--content-bg);
+  padding: 0;
 }
 
 .content-section.active {
