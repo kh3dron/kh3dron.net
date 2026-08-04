@@ -20,21 +20,21 @@
 
 /* Color styling for blog post headings */
 .post-header h1 {
-  color: #ffffff !important;
+  color: var(--ink) !important;
 }
 
 .post-content h2 {
-  color: #ffffff !important;
+  color: var(--ink) !important;
 }
 
 .post-content h3 {
-  color: #ffffff !important;
+  color: var(--ink) !important;
 }
 
 .post-content h4,
 .post-content h5,
 .post-content h6 {
-  color: #ffffff !important;
+  color: var(--ink) !important;
 }
 
 /* Table styling */
@@ -42,28 +42,28 @@
   border-collapse: collapse;
   width: 100%;
   margin: 1.5em 0;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
 }
 
 .post-content table th,
 .post-content table td {
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--ink);
   padding: 12px 16px;
   text-align: left;
 }
 
 .post-content table th {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+  background-color: var(--ink-2);
+  color: var(--paper);
   font-weight: bold;
 }
 
 .post-content table tr:nth-child(even) {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--paper-alt);
 }
 
 .post-content table tr:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--paper-alt2);
 }
 
 
@@ -75,7 +75,7 @@
 }
 
 .reading-time {
-  color: #ffffff;
+  color: var(--ink);
   font-size: 0.9em;
 }
 
@@ -87,14 +87,14 @@
 .table-of-contents {
   margin: 2em 0;
   padding: 1.5em;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--ink);
+  background-color: var(--paper-alt);
 }
 
 .table-of-contents h4 {
   margin-top: 0;
   margin-bottom: 1em;
-  color: #ffffff;
+  color: var(--ink);
 }
 
 .table-of-contents ul {
@@ -108,12 +108,12 @@
 }
 
 .toc-link {
-  color: #ffffff;
+  color: var(--ink-2);
   text-decoration: none;
 }
 
 .toc-link:hover {
-  color: #ffffff;
+  color: var(--ink-2);
   text-decoration: underline;
 }
 
@@ -123,20 +123,20 @@
   justify-content: space-between;
   margin: 3em 0 2em 0;
   padding-top: 2em;
-  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  border-top: 1px solid var(--ink-2);
   gap: 2em;
 }
 
 .nav-prev,
 .nav-next {
-  color: #ffffff;
+  color: var(--ink-2);
   text-decoration: none;
   max-width: 45%;
 }
 
 .nav-prev:hover,
 .nav-next:hover {
-  color: #ffffff;
+  color: var(--ink-2);
   text-decoration: underline;
 }
 

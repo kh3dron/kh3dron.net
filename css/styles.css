@@ -1,15 +1,31 @@
+/* ==================================================================
+   KH3DRON.NET — SITE STYLESHEET
+   Press run: manila stock (#f4efe2) + teal second ink (#0f6f7a).
+   Typeface: Berkeley Mono, system mono fallback. No web fonts.
+   Design language: ~/.claude/skills/industrial-design
+   ================================================================== */
+
 :root {
-  --primary-color: #ffffff;
+  /* PRESS RUN — industrial-design skill. Chosen once, never varied. */
+  --ink: #111;      /* primary ink                             */
+  --ink-2: #0f6f7a; /* second ink: teal, structure + nav only  */
+  --paper: #f4efe2; /* stock: manila                           */
+  --paper-alt: #ebe5d6;
+  --paper-alt2: #e0d9c6;
+  --btn-shadow: #bbb;
+  --mono: "Berkeley Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --primary-color: var(--ink);
   --background-color: transparent;
-  --secondary-color: #ffffff;
+  --secondary-color: var(--ink);
   --border-radius: 0;
-  --link-color: #ffffff;
-  --link-hover-color: #ffffff;
-  --border-color: rgba(255, 255, 255, 0.4);
-  --content-bg: rgba(0, 0, 0, 0.4);
-  --shadow-color: rgba(0, 0, 0, 0.8);
-  --code-bg: rgba(0, 0, 0, 0.5);
-  --code-color: #ffffff;
+  --link-color: var(--ink-2);
+  --link-hover-color: var(--ink-2);
+  --border-color: var(--ink-2);
+  --content-bg: var(--paper);
+  --shadow-color: transparent;
+  --code-bg: var(--paper-alt);
+  --code-color: var(--ink);
 }
 
 * {
@@ -24,9 +40,9 @@ html {
 }
 
 body {
-  font-family: "JetBrains Mono";
+  font-family: var(--mono);
   font-size: 16px;
-  background: #15181f;
+  background: var(--paper);
   line-height: 1.2;
   overflow: hidden;
   height: 100%;
@@ -325,12 +341,12 @@ main p:first-child a {
   padding: 0.2rem 0.4rem;
   border-radius: 0;
   color: var(--code-color);
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--mono);
 }
 
 .post-content pre {
   background-color: var(--code-bg);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--ink);
   border-radius: 0;
   padding: 1rem;
   overflow-x: auto;
@@ -343,18 +359,18 @@ main p:first-child a {
   color: var(--code-color);
 }
 
-/* Syntax highlighting - all white on dark */
-.post-content .codehilite .n { color: #ffffff; }
-.post-content .codehilite .p { color: #ffffff; }
-.post-content .codehilite .c1 { color: #999999; }
-.post-content .codehilite .s2 { color: #cccccc; }
-.post-content .codehilite .nt { color: #cccccc; }
-.post-content .codehilite .w { color: #ffffff; }
-.post-content .codehilite .k { color: #ffffff; }
-.post-content .codehilite .kn { color: #ffffff; }
-.post-content .codehilite .o { color: #ffffff; }
-.post-content .codehilite .nb { color: #ffffff; }
-.post-content .codehilite .nf { color: #ffffff; }
+/* Syntax highlighting - all ink on paper */
+.post-content .codehilite .n { color: var(--ink); }
+.post-content .codehilite .p { color: var(--ink); }
+.post-content .codehilite .c1 { color: #6a6a6a; }
+.post-content .codehilite .s2 { color: #555555; }
+.post-content .codehilite .nt { color: #555555; }
+.post-content .codehilite .w { color: var(--ink); }
+.post-content .codehilite .k { color: var(--ink); }
+.post-content .codehilite .kn { color: var(--ink); }
+.post-content .codehilite .o { color: var(--ink); }
+.post-content .codehilite .nb { color: var(--ink); }
+.post-content .codehilite .nf { color: var(--ink); }
 
 .post-content a {
   color: var(--link-color);
@@ -373,7 +389,7 @@ main p:first-child a {
 .screenshot img {
   max-width: 100%;
   height: auto;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--ink);
   border-radius: 0;
 }
 
@@ -382,7 +398,7 @@ main p:first-child a {
   max-width: 100%;
   width: auto;
   height: auto;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--ink);
   border-radius: 0;
   display: block;
   margin: 1.5rem auto;
@@ -490,12 +506,12 @@ main p:first-child a {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.85);
-  border: 2px solid var(--border-color);
+  background-color: var(--paper);
+  border: 1px solid var(--ink);
   border-radius: 0;
   padding: 2rem;
   z-index: 1000;
-  box-shadow: none;
+  box-shadow: 2px 2px var(--btn-shadow);
   display: none;
   text-align: center;
 }
@@ -503,11 +519,11 @@ main p:first-child a {
 .email-popup p {
   color: var(--primary-color);
   margin-bottom: 1rem;
-  font-family: "JetBrains Mono";
+  font-family: var(--mono);
 }
 
 .email-popup .email-address {
-  color: var(--link-color);
+  color: var(--ink);
   font-weight: bold;
   padding: 0.5rem;
   background-color: var(--code-bg);
@@ -519,9 +535,9 @@ main p:first-child a {
 }
 
 .email-popup .copy-btn {
-  background: none;
-  border: 1px solid var(--link-color);
-  color: var(--link-color);
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  color: var(--ink);
   padding: 0.25rem 0.5rem;
   border-radius: 0;
   cursor: pointer;
@@ -532,31 +548,31 @@ main p:first-child a {
 }
 
 .email-popup .copy-btn:hover {
-  background-color: var(--link-color);
-  color: #000000;
+  background-color: var(--ink);
+  color: var(--paper);
 }
 
 .copy-feedback {
-  color: var(--link-color);
+  color: var(--ink);
   font-size: 0.9em;
   margin-bottom: 1rem;
   display: none;
 }
 
 .email-popup .close-btn {
-  background: none;
-  border: 1px solid var(--border-color);
-  color: var(--primary-color);
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  color: var(--ink);
   padding: 0.5rem 1rem;
   border-radius: 0;
   cursor: pointer;
-  font-family: "JetBrains Mono";
+  font-family: var(--mono);
   transition: none;
 }
 
 .email-popup .close-btn:hover {
-  background-color: var(--primary-color);
-  color: #000000;
+  background-color: var(--ink);
+  color: var(--paper);
 }
 
 .popup-overlay {
