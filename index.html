@@ -7,240 +7,66 @@
   <title>kh3dron.net</title>
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🦜</text></svg>">
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="css/lamp.css">
 </head>
 
 <body>
-  <div class="text-container">
-    <div class="content-box">
-      <header>
-        <img src="pfp.jpeg" alt="kh3dron" class="pfp">
-        <pre>
-██╗  ██╗██╗  ██╗██████╗ ██████╗ ██████╗  ██████╗ ███╗   ██╗
-██║ ██╔╝██║  ██║╚════██╗██╔══██╗██╔══██╗██╔═══██╗████╗  ██║
-█████╔╝ ███████║ █████╔╝██║  ██║██████╔╝██║   ██║██╔██╗ ██║
-██╔═██╗ ██╔══██║ ╚═══██╗██║  ██║██╔══██╗██║   ██║██║╚██╗██║
-██║  ██╗██║  ██║██████╔╝██████╔╝██║  ██║╚██████╔╝██║ ╚████║
-╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝</pre>
-      </header>
-      <main>
-        <nav class="nav-links">
-          <a onclick="showSection('bio')" id="nav-bio" class="active">Bio</a>
-          <a onclick="showSection('blog')" id="nav-blog">Blog</a>
-          <a onclick="showSection('reach-me')" id="nav-reach-me">Reach me</a>
-          <a onclick="showSection('projects')" id="nav-projects">Projects</a>
-          <a onclick="showSection('fiction')" id="nav-fiction">Fiction</a>
-        </nav>
-        <div class="content-sections">
-          <section id="bio" class="content-section active">
-            <h3>Bio</h3>
-            <div class="experience-group">
-              <h4>Currently:</h4>
-              <ul>
-                <li>Senior Infrastructure Engineer @ <a href="https://www.laurel.ai/" class="employer-link">Laurel</a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4>Interests:</h4>
-              <ul>
-                <li>Agent Infrastructure, toolchains and RAG for Laurel's
-                  engineering org</li>
-                <li>Generally working on: Platform Engineering, K8s, Devops & CI</li>
-                <li>In my spare time: Math, <a href="https://github.com/kh3dron/scifi-database"
-                    class="project-link">Science Fiction</a>,
-                  <a href="https://github.com/kh3dron/homelab" class="project-link">Homelabbing</a>,
-                  Engineering History & <a href="https://github.com/kh3dron/khedrons-qol-tweaks"
-                    class="project-link">Factorio</a>
-                </li>
-              </ul>
-            </div>
-            <div class="experience-group">
-              <h4>Previously:</h4>
-              <ul>
-                <li>Senior Infrastructure Engineer @ <a href="https://www.nike.com/" class="employer-link">Nike</a></li>
-                <li>Lead Cloud Engineer @ <a href="https://www.movementinfrastructure.org/"
-                    class="employer-link">Movement
-                    Infrastructure
-                    Group</a></li>
-                <li>Cloud Engineer @ <a href="https://communitytechalliance.org/" class="employer-link">Community Tech
-                    Alliance</a></li>
-                <li>Infrastructure Engineer @ <a href="https://www.laurel.ai/" class="employer-link">Laurel</a></li>
-                <li>Webapp Penetration Tester @ <a href="https://www.netspi.com/" class="employer-link">Netspi</a></li>
-                <li>Computer Science @ <a href="https://www.lclark.edu/" class="employer-link">Lewis & Clark
-                    College</a></li>
-              </ul>
-            </div>
-          </section>
-          <section id="blog" class="content-section">
-            <h3>Blog</h3>
-            <ul class="blog-posts">
-              <li class="blog-post-item">
-                <a href="./blog/9/index.html" class="blog-post-title">What's New at Laurel</a>
-                <span class="blog-post-date">August 2026</span>
-              </li>
-              <li class="blog-post-item">
-                <a href="./blog/8/index.html" class="blog-post-title">Models > Money > Tools</a>
-                <span class="blog-post-date">June 2026</span>
-              </li>
-              <li class="blog-post-item">
-                <a href="./blog/7/index.html" class="blog-post-title">the Same Guy problem</a>
-                <span class="blog-post-date">May 2026</span>
-              </li>
-              <li class="blog-post-item">
-                <a href="./blog/6/index.html" class="blog-post-title">My Coding Setup, March 2026</a>
-                <span class="blog-post-date">March 2026</span>
-              </li>
-              <li class="blog-post-item">
-                <a href="./blog/5/index.html" class="blog-post-title">The Factory Must Grow (Without You)</a>
-                <span class="blog-post-date">January 2026</span>
-              </li>
-              <li class="blog-post-item">
-                <a href="./blog/4/index.html" class="blog-post-title">EOY 2025</a>
-                <span class="blog-post-date">January 2026</span>
-              </li>
-              <li class="blog-post-item">
-                <a href="./blog/3/index.html" class="blog-post-title">The Tech Tree Beyond Self-Driving Cars</a>
-                <span class="blog-post-date">November 2025</span>
-              </li>
-              <li class="blog-post-item">
-                <a href="./blog/2/index.html" class="blog-post-title">Force multiplying with AI at Laurel</a>
-                <span class="blog-post-date">November 2025</span>
-              </li>
-              <li class="blog-post-item">
-                <a href="./blog/1/index.html" class="blog-post-title">Writing MCP servers to interface with your vendors</a>
-                <span class="blog-post-date">September 2025</span>
-              </li>
-            </ul>
-          </section>
-          <section id="fiction" class="content-section">
-            <h3>Fiction</h3>
-            <ul class="blog-posts">
-              <li class="blog-post-item">
-                <a href="./fiction/2/index.html" class="blog-post-title">Fold Caves</a>
-                <span class="blog-post-date">January 2026</span>
-              </li>
-              <li class="blog-post-item">
-                <a href="./fiction/1/index.html" class="blog-post-title">Clock Cycle</a>
-                <span class="blog-post-date">December 2020</span>
-              </li>
-            </ul>
-          </section>
-          <section id="reach-me" class="content-section">
-            <h3>Reach me</h3>
-            <ul>
-              <li><a href="https://x.com/m00nwhaler" class="reference-link">X</a></li>
-              <li><a href="https://github.com/kh3dron" class="reference-link">Github</a></li>
-              <li><a href="https://www.linkedin.com/in/tristan-saldanha/" class="reference-link">Linkedin</a></li>
-              <li>Gmail: tristansaldanha@gmail.com</li>
-            </ul>
-          </section>
-          <section id="projects" class="content-section">
-            <h3>Projects</h3>
-            <ul>
-              <li>
-                <a href="https://kh3dron.github.io/topologic-go/" class="project-link">Topological Go</a>
-              </li>
-              <li>
-                <a href="https://kh3dron.github.io/plants/" class="project-link">The Algorithmic Beauty of Plants</a>
-              </li>
-              <li>
-                <a href="https://kh3dron.github.io/graphics/" class="project-link">WebGL Programming Guide</a>
-              </li>
-            </ul>
-          </section>
-        </div>
-      </main>
+  <canvas id="lamp" aria-hidden="true"></canvas>
+
+  <main class="stage">
+    <h1 class="title" data-clear>@kh3dron</h1>
+
+    <div class="text" id="text">
+      <section>
+        <h2 data-clear>Currently</h2>
+        <ul>
+          <li data-clear>tech lead, developer productivity @ <a href="https://www.laurel.ai/">Laurel</a></li>
+          <li data-clear>agentic infrastructure and software factories</li>
+          <li data-clear><a href="https://github.com/kh3dron/scifi-database">science fiction</a>, math, and puzzles</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 data-clear>Previously</h2>
+        <ul>
+          <li data-clear>Senior Infrastructure Engineer, <a href="https://www.nike.com/">Nike</a></li>
+          <li data-clear>Lead Cloud Engineer, <a href="https://www.movementinfrastructure.org/">Movement Infrastructure Group</a></li>
+          <li data-clear>Cloud Engineer, <a href="https://communitytechalliance.org/">Community Tech Alliance</a></li>
+          <li data-clear>Infrastructure Engineer, <a href="https://www.laurel.ai/">Laurel</a></li>
+          <li data-clear>Webapp Penetration Tester, <a href="https://www.netspi.com/">NetSPI</a></li>
+          <li data-clear>Computer Science, <a href="https://www.lclark.edu/">Lewis &amp; Clark College</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 data-clear>Writing</h2>
+        <ul>
+          <li data-clear><a href="writing.html#blog">Blog</a></li>
+          <li data-clear><a href="writing.html#fiction">Fiction</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 data-clear>Projects</h2>
+        <ul>
+          <li data-clear><a href="https://kh3dron.github.io/topologic-go/">Topological Go</a></li>
+          <li data-clear><a href="https://kh3dron.github.io/plants/">The Algorithmic Beauty of Plants</a></li>
+          <li data-clear><a href="https://kh3dron.github.io/graphics/">WebGL Programming Guide</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 data-clear>Reach me</h2>
+        <ul>
+          <li data-clear><a href="https://x.com/m00nwhaler">X</a></li>
+          <li data-clear><a href="https://github.com/kh3dron">GitHub</a></li>
+          <li data-clear><a href="https://www.linkedin.com/in/tristan-saldanha/">LinkedIn</a></li>
+        </ul>
+      </section>
     </div>
-  </div>
+  </main>
 
-  <!-- Email popup -->
-  <div class="popup-overlay" id="popupOverlay" onclick="hideEmailPopup()"></div>
-  <div class="email-popup" id="emailPopup">
-    <p>Contact me at:</p>
-    <div class="email-address">
-      <span id="emailText">tristansaldanha@gmail.com</span>
-      <button class="copy-btn" onclick="copyEmail()" title="Copy to clipboard">
-        <i class="fas fa-copy"></i>
-      </button>
-    </div>
-    <div class="copy-feedback" id="copyFeedback">Copied to clipboard!</div>
-    <button class="close-btn" onclick="hideEmailPopup()">Close</button>
-  </div>
-
-  <script>
-    function showEmailPopup() {
-      document.getElementById('popupOverlay').style.display = 'block';
-      document.getElementById('emailPopup').style.display = 'block';
-    }
-
-    function hideEmailPopup() {
-      document.getElementById('popupOverlay').style.display = 'none';
-      document.getElementById('emailPopup').style.display = 'none';
-      document.getElementById('copyFeedback').style.display = 'none';
-    }
-
-    function copyEmail() {
-      const emailText = document.getElementById('emailText').textContent;
-      navigator.clipboard.writeText(emailText).then(() => {
-        const feedback = document.getElementById('copyFeedback');
-        feedback.style.display = 'block';
-        setTimeout(() => {
-          feedback.style.display = 'none';
-        }, 2000);
-      }).catch(() => {
-        // Fallback for older browsers
-        const textArea = document.createElement('textarea');
-        textArea.value = emailText;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-
-        const feedback = document.getElementById('copyFeedback');
-        feedback.style.display = 'block';
-        setTimeout(() => {
-          feedback.style.display = 'none';
-        }, 2000);
-      });
-    }
-
-    // Close popup with Escape key
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape') {
-        hideEmailPopup();
-      }
-    });
-
-    // Show/hide sections
-    function showSection(sectionId) {
-      // Hide all sections
-      const sections = document.querySelectorAll('.content-section');
-      sections.forEach(section => {
-        section.classList.remove('active');
-      });
-
-      // Remove active class from all nav links
-      const navLinks = document.querySelectorAll('.nav-links a');
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-      });
-
-      // Show the selected section
-      const selectedSection = document.getElementById(sectionId);
-      if (selectedSection) {
-        selectedSection.classList.add('active');
-      }
-
-      // Mark the corresponding nav link as active
-      const activeNavLink = document.getElementById('nav-' + sectionId);
-      if (activeNavLink) {
-        activeNavLink.classList.add('active');
-      }
-    }
-  </script>
+  <script src="lamp.js"></script>
 </body>
-
 
 </html>

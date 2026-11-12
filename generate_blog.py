@@ -93,7 +93,7 @@ def create_html_template(title, content, date=None):
           </div>
 
           <div class="navigation">
-            <a href="../../index.html" class="reference-link">← back to home</a>
+            <a href="../../writing.html" class="reference-link">← back to writing</a>
           </div>
         </article>
       </main>
@@ -270,8 +270,8 @@ def process_section(section_name, section_config):
 
 
 def update_base_index(section_posts):
-    """Update base index.html with posts from all sections"""
-    base_index_path = Path("index.html")
+    """Update writing.html with posts from all sections"""
+    base_index_path = Path("writing.html")
     if not base_index_path.exists():
         return
 
@@ -295,7 +295,7 @@ def update_base_index(section_posts):
         f.write(base_index_content)
 
     total_posts = sum(len(posts) for posts in section_posts.values())
-    print(f"Updated base index.html with {total_posts} total posts")
+    print(f"Updated writing.html with {total_posts} total posts")
 
 
 def main():

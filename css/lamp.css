@@ -1,0 +1,94 @@
+/* Landing page only. Reading pages use styles.css.
+   Type and spacing: ~/.claude/skills/industrial-design, set in reverse on the
+   simulation. No panel: lamp.js dims boids behind each [data-clear] line. */
+
+:root {
+  --paper: #fdfdfd;
+  --ink: #111;
+  --ink-2: #7dfbe0; /* second ink, lightened for the dark field: rules + links */
+  --deep: #06050d;
+  --font: "Helvetica Neue", Helvetica, Arial, sans-serif; /* face: grotesk */
+  --size: 14px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-radius: 0;
+}
+
+body {
+  background: var(--deep);
+  color: var(--paper);
+  font-family: var(--font);
+  font-size: var(--size);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+  min-height: 100vh;
+}
+
+#lamp {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+}
+
+.stage {
+  position: relative;
+  z-index: 1;
+  max-width: 72ch;
+  margin: 0 auto;
+  padding: 4ch 2ch 4ch;
+}
+
+.title {
+  font-size: 28px;
+  line-height: 1;
+  width: fit-content;
+  margin-bottom: 2ch;
+}
+
+section {
+  border-top: 1px solid var(--ink-2);
+  padding: 1ch 0 2ch;
+}
+
+h2 {
+  font-size: var(--size);
+  font-weight: bold;
+  margin-bottom: 1ch;
+  width: fit-content;
+}
+
+p {
+  margin-bottom: 1ch;
+  width: fit-content;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  padding-left: 2ch;
+  text-indent: -2ch;
+  width: fit-content;
+}
+
+li::before {
+  content: "- ";
+}
+
+a {
+  color: var(--ink-2);
+  text-decoration: underline;
+}
+
+:focus-visible {
+  outline: 1px dotted var(--ink-2);
+  outline-offset: 2px;
+}
