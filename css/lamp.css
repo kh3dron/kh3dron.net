@@ -28,13 +28,18 @@ body {
   min-height: 100vh;
 }
 
-#lamp {
+#lamp,
+#lamp-overlay {
   position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
   display: block;
   z-index: 0;
+}
+
+#lamp-overlay {
+  pointer-events: none;
 }
 
 .stage {
