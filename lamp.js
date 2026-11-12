@@ -31,6 +31,7 @@
   const AMBIENT = 0.62;
   const LIGHT = [-0.41, -0.71, -0.57];
   const WARMUP_STEPS = 300;
+  const CLEAR_SELECTOR = "[data-clear], .prose p, .prose li, .prose h2, .prose h3, .prose h4";
   const CLEAR_PAD_X = 16;
   const CLEAR_PAD_Y = 6;
   const CLEAR_BLUR = 22;
@@ -426,7 +427,9 @@ void main() {
     ctx.shadowBlur = CLEAR_BLUR * sx;
     ctx.shadowOffsetX = FAR;
     const range = document.createRange();
-    for (const el of document.querySelectorAll("[data-clear]")) {
+    for (const el of document.querySelectorAll(CLEAR_SELECTOR)) {
+      const box = el.getBoundingClientRect();
+      if (box.bottom < -CLEAR_BLUR * 2 || box.top > innerHeight + CLEAR_BLUR * 2) continue;
       range.selectNodeContents(el);
       for (const r of range.getClientRects()) {
         if (r.bottom < -CLEAR_BLUR * 2 || r.top > innerHeight + CLEAR_BLUR * 2 || r.width === 0) continue;
@@ -546,6 +549,13 @@ void main() {
     draw();
     requestAnimationFrame(tick);
   }
+
+  function refreshMask() {
+    drawMask();
+    if (!running) draw();
+  }
+  addEventListener("load", refreshMask);
+  if (stage && window.ResizeObserver) new ResizeObserver(refreshMask).observe(stage);
 
   addEventListener("resize", resize);
   resize();

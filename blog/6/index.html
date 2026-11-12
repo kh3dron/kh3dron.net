@@ -5,32 +5,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Coding Setup, March 2026 - kh3dron.net</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🦜</text></svg>">
   <link rel="stylesheet" href="../../css/styles.css">
-  <link rel="stylesheet" href="../../css/blog.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
-  <div class="text-container">
-    <header class="post-header">
-      <h1>My Coding Setup, March 2026</h1>
-      <div class="post-meta-container">
-        <p class="post-meta">March 11, 2026</p>
-      </div>
-    </header>
-    <div class="content-box">
-      <main>
-        <article class="blog-post">
-          <div class="post-content">
+  <canvas id="lamp" aria-hidden="true"></canvas>
+  <canvas id="lamp-overlay" aria-hidden="true"></canvas>
+
+  <main class="stage">
+    <p class="crumb" data-clear><a href="../../index.html">@kh3dron</a> / <a href="../../writing.html">Writing</a></p>
+    <h1 class="title" data-clear>My Coding Setup, March 2026</h1>
+    <p class="meta" data-clear>March 11, 2026</p>
+
+    <section>
+      <article class="prose">
             <p>I work a lot on dev experience and configs at work. I've iterated a lot on my own flow, especialy as coding has changed in the last year or two. Here's a snapshot of what I'm doing now, just as a time capsule of my personal meta in March 2026.</p>
 <p>Contents:</p>
 <ul>
-<li><a href="#principles" class="project-link">Principles</a></li>
-<li><a href="#physical" class="project-link">Physical</a></li>
-<li><a href="#applications" class="project-link">Applications</a></li>
-<li><a href="#ui" class="project-link">UI</a></li>
-<li><a href="#macros" class="project-link">Macros</a></li>
-<li><a href="#workflow" class="project-link">Workflow</a></li>
+<li><a href="#principles">Principles</a></li>
+<li><a href="#physical">Physical</a></li>
+<li><a href="#applications">Applications</a></li>
+<li><a href="#ui">UI</a></li>
+<li><a href="#macros">Macros</a></li>
+<li><a href="#workflow">Workflow</a></li>
 </ul>
 <h1>Principles</h1>
 <h2>Laziness</h2>
@@ -39,7 +38,7 @@
 <p>I like things simple. As few things as possible should be on the screen at once. To adopt a phrase: if you're not occasionally re-surfacing things that you previously hid, you're not hiding enough.</p>
 <h1>Physical</h1>
 <h2>Laptop only, no monitors</h2>
-<p>Primarily because of <a href="https://github.com/nikitabobko/AeroSpace" class="project-link">Aerospace</a>, I don't need to use an external monitor. I've gone through lots of setups in the past: 2x1080p, then 2x4k, ultrawide, then 1x 4k, now back to just the laptop. I only ever have window open on the screen at a time, no split screens, no split terminals or editors. A 15-inch laptop is plenty. this gives me great mobility; I can lounge around and be 100% comfortable on a couch, in a hotel room, or moving between conference rooms.</p>
+<p>Primarily because of <a href="https://github.com/nikitabobko/AeroSpace">Aerospace</a>, I don't need to use an external monitor. I've gone through lots of setups in the past: 2x1080p, then 2x4k, ultrawide, then 1x 4k, now back to just the laptop. I only ever have window open on the screen at a time, no split screens, no split terminals or editors. A 15-inch laptop is plenty. this gives me great mobility; I can lounge around and be 100% comfortable on a couch, in a hotel room, or moving between conference rooms.</p>
 <p>My desk at home faces a window, and there's some birdfeeders right outside. I like watching birds come and go throughout the day, though I probably see more suquirrels.</p>
 <p><img alt="My desk facing the window" src="desk.jpeg" title="Desk" /></p>
 <p><img alt="Squirrels at the birdfeeder" src="squirrels.jpeg" title="Squirrels" /></p>
@@ -92,16 +91,11 @@
 <h2>Writing Agents</h2>
 <p>Getting a little outside the scope of this post, but for any workflow or project I work on long enough, I eventually move into writing skills and agents in my dotfiles repo. That way I can invoke Claude Code more efficiently elsewhere rather than dealing in raw prompts for repetitive tasks.</p>
 <p>EOF</p>
-          </div>
+      </article>
+    </section>
+  </main>
 
-          <div class="navigation">
-            <a href="../../writing.html" class="reference-link">← back to writing</a>
-          </div>
-        </article>
-      </main>
-    </div>
-  </div>
-
+  <script src="../../lamp.js"></script>
 </body>
 
 </html>

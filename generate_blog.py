@@ -72,34 +72,28 @@ def create_html_template(title, content, date=None):
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title} - kh3dron.net</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🦜</text></svg>">
   <link rel="stylesheet" href="../../css/styles.css">
-  <link rel="stylesheet" href="../../css/blog.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
-  <div class="text-container">
-    <header class="post-header">
-      <h1>{title}</h1>
-      <div class="post-meta-container">
-        <p class="post-meta">{date_str}</p>
-      </div>
-    </header>
-    <div class="content-box">
-      <main>
-        <article class="blog-post">
-          <div class="post-content">
-            {content}
-          </div>
+  <canvas id="lamp" aria-hidden="true"></canvas>
+  <canvas id="lamp-overlay" aria-hidden="true"></canvas>
 
-          <div class="navigation">
-            <a href="../../writing.html" class="reference-link">← back to writing</a>
-          </div>
-        </article>
-      </main>
-    </div>
-  </div>
+  <main class="stage">
+    <p class="crumb" data-clear><a href="../../index.html">@kh3dron</a> / <a href="../../writing.html">Writing</a></p>
+    <h1 class="title" data-clear>{title}</h1>
+    <p class="meta" data-clear>{date_str}</p>
 
+    <section>
+      <article class="prose">
+{content}
+      </article>
+    </section>
+  </main>
+
+  <script src="../../lamp.js"></script>
 </body>
 
 </html>"""
@@ -126,11 +120,7 @@ def generate_posts_html(posts, link_prefix=""):
         date_formatted = format_date_month_year(post["date"])
         link = f"{link_prefix}{post['slug']}/index.html"
 
-        # Use correct indentation: 14 spaces for <li>, 16 for <a> and <span>
-        posts_html += f"""              <li class="blog-post-item">
-                <a href="{link}" class="blog-post-title">{post['title']}</a>
-                <span class="blog-post-date">{date_formatted}</span>
-              </li>
+        posts_html += f"""        <li data-clear><a href="{link}">{post['title']}</a><span class="date">{date_formatted}</span></li>
 """
     return posts_html
 
@@ -161,11 +151,6 @@ def process_markdown_content(content, content_start=0):
 
     md = markdown.Markdown(extensions=["fenced_code", "codehilite", "tables"])
     html_content = md.convert(content_without_title)
-
-    # Add proper link classes
-    html_content = re.sub(
-        r'<a href="([^"]*)">', r'<a href="\1" class="project-link">', html_content
-    )
 
     return html_content
 
@@ -284,8 +269,8 @@ def update_base_index(section_posts):
         posts_html = generate_posts_html(posts, link_prefix=f"./{section_config['dir']}/")
 
         # Find and replace the posts list in this section
-        pattern = rf'(<section id="{section_name}" class="content-section">\s*<h3>{section_config["title"]}</h3>\s*<ul class="blog-posts">).*?(</ul>\s*</section>)'
-        replacement = r"\1\n" + posts_html + r"            \2"
+        pattern = rf'(<section id="{section_name}">\s*<h2 data-clear>{section_config["title"]}</h2>\s*<ul class="posts">).*?(</ul>\s*</section>)'
+        replacement = r"\1\n" + posts_html + r"      \2"
 
         base_index_content = re.sub(
             pattern, replacement, base_index_content, flags=re.DOTALL

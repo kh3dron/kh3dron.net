@@ -5,23 +5,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Force multiplying with AI at Laurel - kh3dron.net</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🦜</text></svg>">
   <link rel="stylesheet" href="../../css/styles.css">
-  <link rel="stylesheet" href="../../css/blog.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
-  <div class="text-container">
-    <header class="post-header">
-      <h1>Force multiplying with AI at Laurel</h1>
-      <div class="post-meta-container">
-        <p class="post-meta">November 03, 2025</p>
-      </div>
-    </header>
-    <div class="content-box">
-      <main>
-        <article class="blog-post">
-          <div class="post-content">
+  <canvas id="lamp" aria-hidden="true"></canvas>
+  <canvas id="lamp-overlay" aria-hidden="true"></canvas>
+
+  <main class="stage">
+    <p class="crumb" data-clear><a href="../../index.html">@kh3dron</a> / <a href="../../writing.html">Writing</a></p>
+    <h1 class="title" data-clear>Force multiplying with AI at Laurel</h1>
+    <p class="meta" data-clear>November 03, 2025</p>
+
+    <section>
+      <article class="prose">
             <p><em>This is the written form of a talk I gave to an eng org considering getting "ai pilled".</em></p>
 <p>The startup I work at, Laurel, raised our Series C round in April. All of our investors asked us the same question: "$BIG FIRM says they don't need to hire any more engineers because of AI. Are you doing that? Why not?"</p>
 <p>We all know there's some showbusiness in that claim - most of the firms who "don't need to hire engineers anymore" are a) still hiring engineers, and b) selling AI products themselves. But there is some truth here - SWE productivity is not pinned to headcount like it used to be.</p>
@@ -93,16 +92,11 @@
 <p>The exception here - the place where I still get to write my own code - is the connective tissue. As there are more tools around, they still need to be connected to each other, and those pipes are not always available off the shelf. custom integrations for vendor-specific APIs are still necesarry, and the volume of them needed grows quadratically with your number of tools. There's an easy argument to be made that this is now me supporting the tools instead of the tools supporting me. Such is life!</p>
 <h2>What are we doing next?</h2>
 <p>We have lots of projects and plans in place on further ways to multiply the productivity of our human coders as well as increase the performance and decrease the annoyance from our fully headless workflows. I'm sure I will write another version of this blog post a year from now with a suite of radically different predictions and tools in use.</p>
-          </div>
+      </article>
+    </section>
+  </main>
 
-          <div class="navigation">
-            <a href="../../writing.html" class="reference-link">← back to writing</a>
-          </div>
-        </article>
-      </main>
-    </div>
-  </div>
-
+  <script src="../../lamp.js"></script>
 </body>
 
 </html>

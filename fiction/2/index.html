@@ -5,23 +5,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fold Caves - kh3dron.net</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🦜</text></svg>">
   <link rel="stylesheet" href="../../css/styles.css">
-  <link rel="stylesheet" href="../../css/blog.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
-  <div class="text-container">
-    <header class="post-header">
-      <h1>Fold Caves</h1>
-      <div class="post-meta-container">
-        <p class="post-meta">January 2026</p>
-      </div>
-    </header>
-    <div class="content-box">
-      <main>
-        <article class="blog-post">
-          <div class="post-content">
+  <canvas id="lamp" aria-hidden="true"></canvas>
+  <canvas id="lamp-overlay" aria-hidden="true"></canvas>
+
+  <main class="stage">
+    <p class="crumb" data-clear><a href="../../index.html">@kh3dron</a> / <a href="../../writing.html">Writing</a></p>
+    <h1 class="title" data-clear>Fold Caves</h1>
+    <p class="meta" data-clear>January 2026</p>
+
+    <section>
+      <article class="prose">
             <p>FOLD CAVES</p>
 <p>ENTRY LAST UPDATED: 2161</p>
 <p>Fold Caves (or “Trap Caves”) are members of the proposed domain of life Manifoldia, characterized by non-Euclidean connectivity and temporally displaced bodily components. They present as angular stone caverns whose surrounding geology is ordinary, while the interior space exhibits directed adjacency: formally, traversals can be locally reversible but globally non-returning. Fold Caves are theorized to function as carnivorous organisms that “fold” space and time around prey, confining open space into closed regions from which exit paths do not exist. Digestion is inferred to occur in the future.</p>
@@ -72,16 +71,11 @@
 <p>Chronodecomposers</p>
 <p>2144 Hammond Accords</p>
 <p>List of causality violating Manifoldia</p>
-          </div>
+      </article>
+    </section>
+  </main>
 
-          <div class="navigation">
-            <a href="../../writing.html" class="reference-link">← back to writing</a>
-          </div>
-        </article>
-      </main>
-    </div>
-  </div>
-
+  <script src="../../lamp.js"></script>
 </body>
 
 </html>

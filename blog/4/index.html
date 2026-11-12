@@ -5,24 +5,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EOY 2025 - kh3dron.net</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🦜</text></svg>">
   <link rel="stylesheet" href="../../css/styles.css">
-  <link rel="stylesheet" href="../../css/blog.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
-  <div class="text-container">
-    <header class="post-header">
-      <h1>EOY 2025</h1>
-      <div class="post-meta-container">
-        <p class="post-meta">January 11, 2026</p>
-      </div>
-    </header>
-    <div class="content-box">
-      <main>
-        <article class="blog-post">
-          <div class="post-content">
-            <p>This poast is inspired by my friend and coworker <a href="https://writing.natwelch.com/" class="project-link">NAT WELCH</a> to write an eoy / start of year post.</p>
+  <canvas id="lamp" aria-hidden="true"></canvas>
+  <canvas id="lamp-overlay" aria-hidden="true"></canvas>
+
+  <main class="stage">
+    <p class="crumb" data-clear><a href="../../index.html">@kh3dron</a> / <a href="../../writing.html">Writing</a></p>
+    <h1 class="title" data-clear>EOY 2025</h1>
+    <p class="meta" data-clear>January 11, 2026</p>
+
+    <section>
+      <article class="prose">
+            <p>This poast is inspired by my friend and coworker <a href="https://writing.natwelch.com/">NAT WELCH</a> to write an eoy / start of year post.</p>
 <p>I've had very clear milestones for the last 2 years, oriented around managing my career and progressing my relationship with my (now) wife. I've also knocked them all out of the park. The problem is that in 2026, I'm not aiming to make any big changes with work, and I'm not planning to get another wife. Which leaves 2026 as a sort of "gap year" period on these two main fronts. "Continue to do well at work" and "Continue to be married", while requirements, are not interesting as <em>goals</em>. In 2027, I'll probably be aiming for another title bump, as well as my wife and I (probably) having our first child. Which leaves us here:</p>
 <table>
 <thead>
@@ -77,16 +76,11 @@ The other stuff: why not. goals are great when accompanied by fun numbers.</p>
 <li>some other home repair projects</li>
 </ul>
 <p>So there we have it. We'll see how this looks at the end of the year! In my EOY 2026 post, I should be posting pictures of a tidy house, a collection of stories, and some thirst traps. See ya then.</p>
-          </div>
+      </article>
+    </section>
+  </main>
 
-          <div class="navigation">
-            <a href="../../writing.html" class="reference-link">← back to writing</a>
-          </div>
-        </article>
-      </main>
-    </div>
-  </div>
-
+  <script src="../../lamp.js"></script>
 </body>
 
 </html>

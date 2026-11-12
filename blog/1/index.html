@@ -5,23 +5,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Writing MCP servers to interface with your vendors - kh3dron.net</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🦜</text></svg>">
   <link rel="stylesheet" href="../../css/styles.css">
-  <link rel="stylesheet" href="../../css/blog.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
-  <div class="text-container">
-    <header class="post-header">
-      <h1>Writing MCP servers to interface with your vendors</h1>
-      <div class="post-meta-container">
-        <p class="post-meta">September 15, 2025</p>
-      </div>
-    </header>
-    <div class="content-box">
-      <main>
-        <article class="blog-post">
-          <div class="post-content">
+  <canvas id="lamp" aria-hidden="true"></canvas>
+  <canvas id="lamp-overlay" aria-hidden="true"></canvas>
+
+  <main class="stage">
+    <p class="crumb" data-clear><a href="../../index.html">@kh3dron</a> / <a href="../../writing.html">Writing</a></p>
+    <h1 class="title" data-clear>Writing MCP servers to interface with your vendors</h1>
+    <p class="meta" data-clear>September 15, 2025</p>
+
+    <section>
+      <article class="prose">
             <p>This is a case study of something I did at work last week. It's a trendy thing to do and there were a few things I had to figure out, so here's a guide.</p>
 <h2>Motivation</h2>
 <p>My company uses LaunchDarkly feature flags in our product. The ask is this: we often want to find out if a particular flag is enabled for a particular group of users.
@@ -66,9 +65,9 @@ get_all_flags_for_segment(project, environment, segment)
 
 <p>I'm going to assume you know how to write these functions, including API auth, validation, error handling, and some parallelism for that last one.</p>
 <h2>Turning this into an MCP server</h2>
-<p>Since I wrote this in Python, I'm using <a href="https://fastapi.tiangolo.com/tutorial/first-steps/" class="project-link">FastAPI</a> to turn these function definitions into API endpoints. From there, it's only a couple decrators to turn these API endpoints into MCP tools. For this I used <a href="https://github.com/tadata-org/fastapi_mcp" class="project-link">FastAPI_MCP</a> Not to be confused with <a href="https://gofastmcp.com/getting-started/welcome" class="project-link">FastMCP</a>, which would also work, but I found it conflicted with some fastAPI specific middleware my company uses in our python service abstractions. (This sentence hides 10 hours of debugging. Please read it twice)</p>
+<p>Since I wrote this in Python, I'm using <a href="https://fastapi.tiangolo.com/tutorial/first-steps/">FastAPI</a> to turn these function definitions into API endpoints. From there, it's only a couple decrators to turn these API endpoints into MCP tools. For this I used <a href="https://github.com/tadata-org/fastapi_mcp">FastAPI_MCP</a> Not to be confused with <a href="https://gofastmcp.com/getting-started/welcome">FastMCP</a>, which would also work, but I found it conflicted with some fastAPI specific middleware my company uses in our python service abstractions. (This sentence hides 10 hours of debugging. Please read it twice)</p>
 <p>Turning an API into an MCP also lets you attach some tool descriptions and additional type decorators, which helps your LLM know how to interact with the tools. If your code is written clearly enough, I just told claude code to add these, and it's good enough for this app.</p>
-<p>For testing this, there's 2 tools I use: the first is <a href="https://modelcontextprotocol.io/legacy/tools/inspector" class="project-link">MCP inspector</a>. It launches a nice web UI that lets you call tools manually, like swagger docs.</p>
+<p>For testing this, there's 2 tools I use: the first is <a href="https://modelcontextprotocol.io/legacy/tools/inspector">MCP inspector</a>. It launches a nice web UI that lets you call tools manually, like swagger docs.</p>
 <p><img alt="MCP Inspector" src="inspector.png" title="MCP Inspector" /></p>
 <p>Once I've done my "unit tests" there, I use the MCP in claude code pointed at localhost to make sure the tools can call eachother correctly. I just drop this at the top level of my <code>.claude.json</code>:</p>
 <pre class="codehilite"><code class="language-json">  &quot;mcpServers&quot;: {
@@ -90,7 +89,7 @@ get_all_flags_for_segment(project, environment, segment)
 <p>Once again, this is a big "draw the rest of the owl" moment, but there's a lot of options here. If this is just for you, you can run this in a docker container on your machine. You could put it in a cloud of your choice. I deployed mine to my company's K8s cluster using our internal service abstractions. There's approximately 10,000 guides on how to deploy a webserver to the internet, so I won't write that guide here.</p>
 <p>One specific failure case to keep in mind here - you might think that an MCP server is stateless, because no state is maintained between tool calls. You are Mostly Correct - a very dangerous kind of correct to be. The MCP server <em>does</em> maintain state, for <em>streaming outputs</em>. The built in service abstractions I used to deploy my app spawns 3 replicas by default, and when using the MCP in production, I got bad session errors, which was confusing, since I hadn't written any session logic. Rather than deal with that, I fixed this problem by just setting the app to run at 1 replica, which will be fine.</p>
 <h2>Hooking it up</h2>
-<p>MCP servers can be local executables or accessed over HTTP. I went with HTTP here because this is being hooked into cloud vendors like <a href="dust.tt" class="project-link">dust</a> and <a href="devin.ai" class="project-link">devin</a> that do not support installing executables in the working environment. (Actually, devin does, but most don't).</p>
+<p>MCP servers can be local executables or accessed over HTTP. I went with HTTP here because this is being hooked into cloud vendors like <a href="dust.tt">dust</a> and <a href="devin.ai">devin</a> that do not support installing executables in the working environment. (Actually, devin does, but most don't).</p>
 <p>To distribute installation steps for CLIs like Claude, I maintain a <code>configs</code> repo for my engineering team with a taskfile that installs all the latest and greatest tools. I tell everyone to pull the latest and <code>task update</code>, and everyone's ready to go.</p>
 <p>I won't bother posting screenshots that are 90% redacted, but suffice it to say that now, asking claude "what flags are enabled for abbott &amp; costello", or, "who's got (experimental feature #6) turned on" does in fact trigger the correct chain of MCP tool calls to get me my answer. Not only did I not have to navigate through the LaunchDarkly web UI or API, I was able to ask for it without even knowing exact slugs for the flags or firms. Nice!</p>
 <h2>What did we learn</h2>
@@ -101,16 +100,11 @@ get_all_flags_for_segment(project, environment, segment)
 <li>Make your MCPs accessible over HTTP so you can access them in abstract API calls</li>
 </ul>
 <p>I did this in 2 workdays. Is any of this rocket science? No. Will it save our CSM team a couple minutes at a time, times a thousand? Yes! Thanks for reading. Please go back to work.</p>
-          </div>
+      </article>
+    </section>
+  </main>
 
-          <div class="navigation">
-            <a href="../../writing.html" class="reference-link">← back to writing</a>
-          </div>
-        </article>
-      </main>
-    </div>
-  </div>
-
+  <script src="../../lamp.js"></script>
 </body>
 
 </html>
